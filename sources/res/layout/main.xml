@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:wnezros="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dip"
+        android:gravity="center_vertical|right" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dip"
+            android:text="@string/from_label" />
+
+        <com.app.numconv.NumberPickerView
+            android:id="@+id/from"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content" >
+
+        </com.app.numconv.NumberPickerView>
+    </LinearLayout>
+    
+    <com.app.numconv.ClearableEditText
+        android:id="@+id/number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/number">
+    </com.app.numconv.ClearableEditText>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dip"
+        android:gravity="center_vertical|right" >
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dip"
+            android:text="@string/to_label" />
+        
+        <com.app.numconv.NumberPickerView
+            android:id="@+id/to"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    
+    <EditText 
+	    android:text="" 
+	    android:layout_height="wrap_content" 
+	    android:selectAllOnFocus="true" 
+	    android:layout_width="fill_parent" 
+	    android:id="@+id/result" 
+	    android:editable="false" 
+	    android:hint="@string/result"/>
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    
+    <android.inputmethodservice.KeyboardView 
+		android:id="@+id/keyboard"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"/>
+</LinearLayout>

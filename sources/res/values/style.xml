@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="title">
+        <item name="android:background">@drawable/titlebar_background_repeat</item>
+    </style>
+    <style name="EditText" parent="@android:style/Widget.EditText">
+		<item name="android:textColor">#FF000000</item>
+        <item name="android:background">@drawable/edittext_background</item>
+        <!-- <item name="android:paddingTop">24px</item>
+        <item name="android:paddingBottom">24px</item>
+        <item name="android:paddingLeft">24px</item>
+        <item name="android:paddingRight">24px</item>-->
+        <item name="android:minHeight">56dp</item>
+	</style>
+	<style name="LeftEditText" parent="EditText">
+		<item name="android:textColor">#FF000000</item>
+        <item name="android:background">@drawable/left_edittext_background</item>
+	</style>
+	<style name="SolidEditText" parent="">
+		<item name="android:textColor">#FF000000</item>
+        <item name="android:background">@drawable/solid_edittext_background</item>
+        <item name="android:minHeight">56dp</item>
+	</style>
+	
+	<style name="Button" parent="@android:style/Widget.ImageButton">
+		<item name="android:textColor">#FF000000</item>
+        <!-- item name="android:background">@drawable/button_background</item-->
+        <item name="android:minHeight">56dp</item>
+	</style>
+	
+	<style name="LeftButton" parent="Button">
+		<item name="android:textColor">#FF000000</item>
+        <item name="android:background">@drawable/left_button_background</item>
+        <item name="android:paddingLeft">24px</item>
+    </style>
+    <style name="RightButton" parent="Button">
+		<item name="android:textColor">#FF000000</item>
+        <item name="android:background">@drawable/right_button_background</item>
+    </style>
+    <style name="SolidButton" parent="Button">
+		<item name="android:textColor">#FF000000</item>
+        <item name="android:background">@drawable/solid_button_background</item>
+    </style>
+</resources>

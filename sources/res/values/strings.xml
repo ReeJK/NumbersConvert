@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Titles -->
+    <string name="app_name">Numbers Convert</string>
+    <string name="calculator">Calculator</string>
+    
+    <!-- Views -->
+    <string name="default_number_view_text">000</string>
+    <string name="select_system_dialog_title">Select number system</string>
+    <string name="empty_string"></string>
+    <string name="ClearableEditText_android_hint"></string>
+    
+    <!-- MainActivity -->
+    <string name="number">Number</string>
+    <string name="result">Result</string>
+    <string name="from_label">From</string>
+    <string name="to_label">To</string>
+    <string name="change_number_system_error">Change system or remove wrong symbols</string>
+    
+    <!-- CalcActivity -->
+    <string name="operation_plus">"&#43;"</string>
+    <string name="operation_minus">"&#8722;"</string>
+    <string name="operation_cross">"&#215;"</string>
+    <string name="operation_divide">"&#247;"</string>
+    <string name="infinity">"Infinity"</string>
+    
+    <!-- NewsActivity -->
+    <string name="new_version">New version</string>
+    <string name="continue_label">Continue</string>
+    <string name="send_me_bugs">You can always send your suggestions and remarks on\nwnezros@gmail.com</string>
+    <string name="email">wnezros@gmail.com</string>
+    <string name="in_new_version">In new version:</string>
+    <string name="in_new_version_info">"3.0.2:
+- Translate of fractional numbers
+- Fix interface
+
+3.0.1:
+- Interface update
+
+3.0.0:
+- The new interface:
+    Text fields with the cleaning button;
+    Dynamically changeable keyboard to enter numbers;
+    Input field of number systems with a history of use (by pressing the number);
+- Translation of numbers of any length
+- Bug Fixes"</string>
+</resources>

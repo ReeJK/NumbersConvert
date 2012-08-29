@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Titles -->
+    <string name="app_name">Конвертация чисел</string>
+    <string name="calculator">Калькулятор</string>
+    
+    <!-- Views -->
+    <string name="default_number_view_text">000</string>
+    <string name="select_system_dialog_title">Выберите систему счисления</string>
+    <string name="empty_string"></string>
+    <string name="ClearableEditText_android_hint"></string>
+    
+    <!-- MainActivity -->
+    <string name="number">Число</string>
+    <string name="result">Результат</string>
+    <string name="from_label">Из</string>
+    <string name="to_label">В</string>
+    <string name="change_number_system_error">Измените систему счисления или удалите не корректные символы</string>
+
+    <!-- CalcActivity -->
+    <string name="infinity">"Бесконечность"</string>
+    
+    <!-- NewsActivity -->
+    <string name="new_version">Новая версия</string>
+    <string name="continue_label">Продолжить</string>
+    <string name="send_me_bugs">Вы всегда можете прислать ваши предложения и замечания на\nwnezros@gmail.com</string>
+    <string name="in_new_version">В новой версии:</string>
+    <string name="in_new_version_info">"3.0.2:
+- Перевод дробных чисел
+- Исправления интерфейса
+
+3.0.1:
+- Обновление интерфейса
+
+3.0.0:
+- Новый интерфейс:
+    Текстовые поля с кнопкой очистки;
+    Динамически изменяемая клавиатура для ввода чисел;
+    Поле ввода систем счисления с историей использования (по нажатию на число);
+- Перевод чисел любой длинны
+- Исправления ошибок"</string>
+
+</resources>

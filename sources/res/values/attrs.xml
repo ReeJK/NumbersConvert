@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <declare-styleable name="ClearableEditText">
+        <attr name="android:text" />
+        <attr name="android:hint" />
+    </declare-styleable>
+    
+    <declare-styleable name="NumberPickerView">
+        <attr name="android:hint" />
+        
+        <attr name="select" format="integer" value="0" />
+        <attr name="interval" format="integer"  value="1" />
+        <attr name="min" format="integer" value="0" />
+        <attr name="max" format="integer" value="9" />
+    </declare-styleable>
+</resources>
