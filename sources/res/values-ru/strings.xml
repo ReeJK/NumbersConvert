@@ -19,13 +19,33 @@
 
     <!-- CalcActivity -->
     <string name="infinity">"Бесконечность"</string>
+
+    <!-- PreferencesActivity -->
+    <string name="preferences">Настройки</string>
+    <string name="pref_use_app_keyboard">Использовать клавиатуру приложения</string>
+    <string name="pref_on_click_system">Показать при нажатии на систему счисления</string>
+    <string name="pref_system_hots">Часто используемые системы</string>
+    <string name="pref_system_last">Использованные в предыдущий раз системы</string>
+    <string name="pref_system_list_all">Все системы в виде списка</string>
+    <string name="pref_system_table_all">Все системы в виде таблицы</string>
+    <string name="pref_system_none">Ничего</string>
+    <string name="pref_hots_fix_28AG">Зафиксировать в часто используемых системах: 2,8,10,16</string>
+    <string name="pref_donate">Пожертвование</string>
+    <string name="pref_about">О программе</string>
+    <string name="by_wnezros">от WNeZRoS</string>
+    <string name="e_mail">Email: wnezros@gmail.com</string>
+    <string name="site">Сайт: http://wnezros.com</string>
+    <string name="pref_alert">Перезапустите приложение чтобы настройки правильно применились.</string>
     
     <!-- NewsActivity -->
     <string name="new_version">Новая версия</string>
     <string name="continue_label">Продолжить</string>
     <string name="send_me_bugs">Вы всегда можете прислать ваши предложения и замечания на\nwnezros@gmail.com</string>
     <string name="in_new_version">В новой версии:</string>
-    <string name="in_new_version_info">"3.0.2:
+    <string name="in_new_version_info">"3.0.3:
+- Добавлены настройки (действия при нажатии на поле ввода системы счисления и другое)
+        
+3.0.2:
 - Перевод дробных чисел
 - Исправления интерфейса
 

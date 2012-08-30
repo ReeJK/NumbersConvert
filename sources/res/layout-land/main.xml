@@ -11,7 +11,7 @@
 
         <com.app.numconv.NumberPickerView
             android:id="@+id/from"
-            android:layout_width="120dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:hint="@string/from_label">
         </com.app.numconv.NumberPickerView>
@@ -31,7 +31,7 @@
         <com.app.numconv.NumberPickerView
             android:id="@+id/to"
             android:hint="@string/to_label" 
-            android:layout_width="120dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"/>
         
         <EditText 

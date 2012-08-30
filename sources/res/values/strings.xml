@@ -24,13 +24,33 @@
     <string name="operation_divide">"&#247;"</string>
     <string name="infinity">"Infinity"</string>
     
+    <!-- PreferencesActivity -->
+    <string name="preferences">Preferences</string>
+    <string name="pref_use_app_keyboard">"Use the app's keyboard"</string>
+    <string name="pref_on_click_system">Show by pressing at system</string>
+    <string name="pref_system_hots">Often used systems</string>
+    <string name="pref_system_last">Last used systems</string>
+    <string name="pref_system_list_all">All systems in a list</string>
+    <string name="pref_system_table_all">All systems in a table</string>
+    <string name="pref_system_none">Do nothing</string>
+    <string name="pref_hots_fix_28AG">Fix often used the system: 2,8,10,16</string>
+    <string name="pref_donate">Donate</string>
+    <string name="pref_about">About</string>
+    <string name="by_wnezros">by WNeZRoS</string>
+    <string name="e_mail">Email: wnezros@gmail.com</string>
+    <string name="site">Site: wnezros.com</string>
+    <string name="pref_alert">Restart app for corrent apply preferences.</string>
+    
     <!-- NewsActivity -->
     <string name="new_version">New version</string>
     <string name="continue_label">Continue</string>
     <string name="send_me_bugs">You can always send your suggestions and remarks on\nwnezros@gmail.com</string>
     <string name="email">wnezros@gmail.com</string>
     <string name="in_new_version">In new version:</string>
-    <string name="in_new_version_info">"3.0.2:
+    <string name="in_new_version_info">"3.0.3:
+- Added settings (actions by clicking on the input field of the number system, etc.)
+        
+3.0.2:
 - Translate of fractional numbers
 - Fix interface
 

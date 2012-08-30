@@ -8,6 +8,7 @@ import com.app.numconv.NumberPickerView.OnChangeListener;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.inputmethodservice.KeyboardView;
 import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
@@ -38,6 +39,7 @@ public class MainActivity extends BarActivity {
 		setContentView(R.layout.main, R.layout.titlebar);
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+		PreferencesActivity.setDefaultValues(this);
 		
 		int versionCode = 0;
 		try {
@@ -74,7 +76,7 @@ public class MainActivity extends BarActivity {
 			public void onChange(View v, int oldValue, int newValue) {
 				if(oldValue == newValue) return;
 				
-				if(v == _fromView) {
+				if(v == _fromView && _keyboardView != null) {
 					ThisApplication app = (ThisApplication) getApplication();
 					_keyboardView.setKeyboard(app.getKeyboard(newValue));
 					_keyboardView.invalidateAllKeys();
@@ -114,6 +116,8 @@ public class MainActivity extends BarActivity {
 		
 		_numberView.setOnFocusChangeListener(new OnFocusChangeListener() {
 			public void onFocusChange(View v, boolean hasFocus) {
+				if(_keyboardView == null) return;
+				
 				_keyboardView.setVisibility(hasFocus ? View.VISIBLE : View.GONE);
 				if(hasFocus) {
 					InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(
@@ -126,13 +130,18 @@ public class MainActivity extends BarActivity {
 		_resultView.setOnFocusChangeListener(new OnFocusChangeListener() {
 			public void onFocusChange(View v, boolean hasFocus) {
 				if(hasFocus) {
-					_fromView.addHot();
-					_toView.addHot();
+					//_fromView.addHot();
+					//_toView.addHot();
 				}
 			}
 		});
 		
-		_keyboardView = (KeyboardView) findViewById(R.id.keyboard);
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		if(preferences.getBoolean("use_app_keyboard", true))
+			_keyboardView = (KeyboardView) findViewById(R.id.keyboard);
+		else _keyboardView = null;
+		
 		if(_keyboardView == null) {
 			_numberView.setInputType(InputType.TYPE_CLASS_TEXT);
 		} else {
@@ -185,6 +194,9 @@ public class MainActivity extends BarActivity {
 		switch(item.getItemId()) {
 		case R.id.calculatorButton:
 			startActivity(new Intent(this, CalcActivity.class));
+			break;
+		case R.id.preferencesButton:
+			startActivity(new Intent(this, PreferencesActivity.class));
 			break;
 		case android.R.id.home:
 			startActivity(new Intent(this, NewsActivity.class));

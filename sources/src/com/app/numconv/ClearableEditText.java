@@ -30,7 +30,7 @@ public class ClearableEditText extends RelativeLayout {
 		public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
 			Log.d("keyDownContent", "content = " + content.toString());
 			boolean result = super.onKeyDown(view, content, keyCode, event);
-			_onKeyListener.onKey(view, keyCode, event);
+			if(_onKeyListener != null) _onKeyListener.onKey(view, keyCode, event);
 			return result;
 		}
 		

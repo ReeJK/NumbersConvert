@@ -16,17 +16,28 @@ public class ThisApplication extends Application {
 	};
 	
 	private Keyboard _inputKeyboards[] = null;
+	private int _orientation[] = null;
 	
 	public Keyboard getKeyboard(int numberSystem) {
 		if(numberSystem < 2 || numberSystem > 36) return null;
 		if(_inputKeyboards == null) createKeyboards();
+		
+		if(_orientation[numberSystem - 2] != getResources().getConfiguration().orientation) {
+			createKeyboard(numberSystem);
+		}
 		return _inputKeyboards[numberSystem - 2];
 	}
 	
 	private void createKeyboards() {
 		_inputKeyboards = new Keyboard[_InputKeyboardLayouts.length];
+		_orientation = new int[_InputKeyboardLayouts.length];
 		for(int i = 0; i < _InputKeyboardLayouts.length; i++) {
-			_inputKeyboards[i] = new Keyboard(getApplicationContext(), _InputKeyboardLayouts[i]);
+			createKeyboard(i+2);
 		}
+	}
+	
+	private void createKeyboard(int numberSystem) {
+		_inputKeyboards[numberSystem - 2] = new Keyboard(getApplicationContext(), _InputKeyboardLayouts[numberSystem - 2]);
+		_orientation[numberSystem - 2] = getResources().getConfiguration().orientation;
 	}
 }

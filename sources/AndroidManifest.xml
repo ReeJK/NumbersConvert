@@ -2,15 +2,14 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.numconv"
-    android:versionCode="302" android:versionName="3.0.3">
+    android:versionCode="303" android:versionName="3.0.3">
     
     <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="9"/>
 
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:name="ThisApplication">
         <activity android:name=".MainActivity" 
             android:theme="@style/appTheme"
-            android:label="@string/app_name" 
-            android:screenOrientation="portrait">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -18,12 +17,15 @@
         </activity>
         <activity android:name=".CalcActivity"
             android:label="@string/calculator" 
-            android:theme="@style/appTheme"
-            android:screenOrientation="portrait">
+            android:theme="@style/appTheme">
         </activity>
         <activity android:name=".NewsActivity"
             android:label="@string/new_version" 
             android:theme="@style/appTheme">
+        </activity>
+        <activity android:name="PreferencesActivity" 
+            android:label="@string/preferences">
+            
         </activity>
     </application>
 </manifest>

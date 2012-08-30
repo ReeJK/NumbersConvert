@@ -7,9 +7,11 @@ import com.app.numconv.ClearableEditText.OnClearListener;
 import com.app.numconv.NumberPickerView.OnChangeListener;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.inputmethodservice.KeyboardView;
 import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -81,8 +83,8 @@ public class CalcActivity extends BarActivity {
 			Log.d("changeVal", newValue + " " + (v == _fromView1) + _numberView1.isFocused() + " " +
 					(v == _fromView2) + _numberView2.isFocused() + " " + _numberView1.isSelected());
 			
-			if((v == _fromView1 && _numberView1.isFocused()) ||
-					(v == _fromView2 && _numberView2.isFocused())) {
+			if(_keyboardView != null && ((v == _fromView1 && _numberView1.isFocused()) ||
+					(v == _fromView2 && _numberView2.isFocused()))) {
 				ThisApplication app = (ThisApplication) getApplication();
 				_keyboardView.setKeyboard(app.getKeyboard(newValue));
 				_keyboardView.invalidateAllKeys();
@@ -123,14 +125,19 @@ public class CalcActivity extends BarActivity {
 		_resultView.setOnFocusChangeListener(new OnFocusChangeListener() {
 			public void onFocusChange(View v, boolean hasFocus) {
 				if(hasFocus) {
-					_fromView1.addHot();
-					_fromView2.addHot();
-					_toView.addHot();
+					//_fromView1.addHot();
+					//_fromView2.addHot();
+					//_toView.addHot();
 				}
 			}
 		});
 		
-		_keyboardView = (KeyboardView) findViewById(R.id.keyboard);
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		if(preferences.getBoolean("use_app_keyboard", true))
+			_keyboardView = (KeyboardView) findViewById(R.id.keyboard);
+		else _keyboardView = null;
+		
 		if(_keyboardView == null) {
 			_numberView1.setInputType(InputType.TYPE_CLASS_TEXT);
 			_numberView2.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -191,6 +198,7 @@ public class CalcActivity extends BarActivity {
 		
 		number.setOnFocusChangeListener(new OnFocusChangeListener() {
 			public void onFocusChange(View v, boolean hasFocus) {
+				if(_keyboardView == null) return;
 				_keyboardView.setVisibility(hasFocus ? View.VISIBLE : View.GONE);
 				if(hasFocus) {
 					InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(

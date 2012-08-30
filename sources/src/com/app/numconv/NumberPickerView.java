@@ -1,19 +1,26 @@
 package com.app.numconv;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.TypedArray;
 import android.os.Handler;
-import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,26 +31,55 @@ public class NumberPickerView extends LinearLayout {
 		void onChange(View v, int oldValue, int newValue);
 	}
 	
-	private static int _sDefaultDelay = 300;
-	private int _buttonPressed = 0;
-	private Handler _valueChanger = new Handler() {
-		public void handleMessage(Message msg) {
-			select(_current + _buttonPressed);
-			if(_current + _buttonPressed * _interval >= _min && 
-					_current + _buttonPressed * _interval <= _max) 
-				sendEmptyMessageDelayed(0, _sDefaultDelay);
+	private static class DisableRunnable implements Runnable {
+		private View _view;
+		private boolean _enabled; 
+		
+		DisableRunnable(View v, boolean enabled) {
+			_view = v;
+			_enabled = enabled;
 		}
-	};
+		
+		public void run() {
+			_view.setPressed(false);
+			_view.clearFocus();
+			_view.setEnabled(_enabled);
+		}
+	}
 	
-	private static Handler _sDisableHandler = new Handler() {
-		public void handleMessage(Message msg) {
-			View v = (View) msg.obj;
-			v.setPressed(false);
-			v.clearFocus();
-			v.setEnabled(msg.arg1 == 1);
-			Log.d("Disable", msg.what + " " + msg.arg1 + " " + msg.arg2 + " " + v);
+	private static class HotsRunnable implements Runnable {
+		private NumberPickerView _view;
+		private int _value; 
+		
+		HotsRunnable(NumberPickerView v, int value) {
+			_view = v;
+			_value = value;
 		}
-	};
+		
+		public void run() {
+			if(_view.getNumber() == _value)
+				_view.addHot();
+		}
+	}
+	
+	private class ChangerRunnable implements Runnable {
+		private int _addValue;
+		
+		ChangerRunnable(int addValue) {
+			_addValue = addValue;
+		}
+		
+		public void run() {			
+			select(_current + _addValue);
+			if(_current + _addValue * _interval >= _min && _current + _addValue * _interval <= _max) 
+				_handler.postDelayed(this, DEFAULT_DELAY);
+		}
+	}
+	
+	private static final int DEFAULT_DELAY = 300;
+	private static Handler _handler = new Handler();
+	private static int _sHotSystems[];
+	private static int _sLastSystems[];
 	
 	private TextView _hintView;
 	private TextView _numberView;
@@ -55,8 +91,8 @@ public class NumberPickerView extends LinearLayout {
 	private int _current;
 	
 	private OnChangeListener _onChangeListener;
-	
-	private static int _sHotSystems[] = {0, 0, 0, 0, 0, 0, 0};
+	private ChangerRunnable _upChanger = new ChangerRunnable(1);
+	private ChangerRunnable _downChanger = new ChangerRunnable(-1);
 	
 	public NumberPickerView(Context context) {
 		super(context);
@@ -96,12 +132,11 @@ public class NumberPickerView extends LinearLayout {
 		_downButton.setOnTouchListener(new OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				if(event.getAction() == MotionEvent.ACTION_DOWN) {
-					_buttonPressed = -1;
-					_valueChanger.sendEmptyMessageDelayed(0, _sDefaultDelay);
+					_handler.postDelayed(_downChanger, DEFAULT_DELAY);
 				} else if(event.getAction() == MotionEvent.ACTION_UP) {
-					select(_current + _buttonPressed);
-					_buttonPressed = 0;
-					_valueChanger.removeMessages(0);
+					select(_current - 1);
+					_handler.removeCallbacks(_downChanger);
+					_handler.postDelayed(new HotsRunnable(NumberPickerView.this, _current), 3000);
 				}
 				
 				return false;
@@ -111,12 +146,11 @@ public class NumberPickerView extends LinearLayout {
 		_upButton.setOnTouchListener(new OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				if(event.getAction() == MotionEvent.ACTION_DOWN) {
-					_buttonPressed = 1;
-					_valueChanger.sendEmptyMessageDelayed(0, _sDefaultDelay);
+					_handler.postDelayed(_upChanger, DEFAULT_DELAY);
 				} else if(event.getAction() == MotionEvent.ACTION_UP) {
-					select(_current + _buttonPressed);
-					_buttonPressed = 0;
-					_valueChanger.removeMessages(0);
+					select(_current + 1);
+					_handler.removeCallbacks(_upChanger);
+					_handler.postDelayed(new HotsRunnable(NumberPickerView.this, _current), 3000);
 				}
 				
 				return false;
@@ -129,11 +163,19 @@ public class NumberPickerView extends LinearLayout {
 			}
 		});
 		
-		if(_sHotSystems[0] == 0) {
-			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+		if(_sHotSystems == null) {
+			_sHotSystems = new int[35];
 			if(pref != null) {
 				for(int i = 0; i < _sHotSystems.length; i++)
-					_sHotSystems[i] = pref.getInt("hot" + i, 0);
+					_sHotSystems[i] = pref.getInt("hots" + (i+2), 0);
+			}
+		}
+		if(_sLastSystems == null) {
+			_sLastSystems = new int[10];
+			if(pref != null) {
+				for(int i = 0; i < _sLastSystems.length; i++)
+					_sLastSystems[i] = pref.getInt("last" + i, 0);
 			}
 		}
 	}
@@ -172,14 +214,8 @@ public class NumberPickerView extends LinearLayout {
 		if(_onChangeListener != null) 
 			_onChangeListener.onChange(this, oldValue, _current);
 		
-		Log.d("selectFor", _downButton + " : " + _upButton);
-		Log.d("select", _min + " <= " + _current + " <= " + _max + " : " + _interval);
-		
-		_sDisableHandler.sendMessageDelayed(Message.obtain(_sDisableHandler, 1, 
-				_current + _interval <= _max ? 1 : 0, 0, _upButton), 50);
-		
-		_sDisableHandler.sendMessageDelayed(Message.obtain(_sDisableHandler, 1, 
-				_current - _interval >= _min ? 1 : 0, 0, _downButton), 50);
+		_handler.postDelayed(new DisableRunnable(_upButton, _current + _interval <= _max), 50);
+		_handler.postDelayed(new DisableRunnable(_downButton, _current - _interval >= _min), 50);
 	}
 	
 	public void setEnabled(boolean enabled) {
@@ -196,72 +232,159 @@ public class NumberPickerView extends LinearLayout {
 		_onChangeListener = l;
 	}
 	
-	public void addHot() {
+	private void addHot() {
 		addHot(getContext(), _current);
 	}
 	
 	private static void addHot(Context context, int system) {
-		if(system == 2 || system == 8 || system == 10 || system == 16) return;
+		if(system < 2 || system > 36) return;
 		
-		for(int i : _sHotSystems) if(i == system) return;
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		boolean fixHots = prefs.getBoolean("hots_fix", true);
+		if(fixHots && (system == 2 || system == 8 || system == 10 || system == 16)) return;
 		
-		for(int i = 0; i < _sHotSystems.length; i++)
-			if(_sHotSystems[i] == 0) {
-				_sHotSystems[i] = system;
-				PreferenceManager.getDefaultSharedPreferences(context).edit()
-				.putInt("hot" + i, system).commit();
-				return;
+		int systemsAction = Integer.valueOf(prefs.getString("systems_action", "1"));
+		
+		Log.d("addHot", "for " + systemsAction);
+		
+		if(systemsAction == 1) {
+			 _sHotSystems[system - 2]++;
+			 Log.d("hot", "for " + system + " is " + _sHotSystems[system - 2]);
+			prefs.edit().putInt("hots" + system, _sHotSystems[system - 2]).commit();
+			return;
+		} else if(systemsAction == 2) {
+			for(int i : _sLastSystems) if(i == system) return;
+			
+			for(int i = 0; i < _sLastSystems.length; i++)
+				if(_sLastSystems[i] == 0) {
+					_sLastSystems[i] = system;
+					prefs.edit().putInt("last" + i, system).commit();
+					return;
+				}
+			
+			for(int i = 0; i < _sLastSystems.length - 1; i++) {
+				_sLastSystems[i] = _sLastSystems[i + 1];
 			}
-		
-		for(int i = 0; i < _sHotSystems.length - 1; i++) {
-			_sHotSystems[i] = _sHotSystems[i + 1];
-		}
-		
-		_sHotSystems[_sHotSystems.length - 1] = system;
-		
-		Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-		for(int i = 0; i < _sHotSystems.length; i++) {
-			editor.putInt("hot" + (i), _sHotSystems[i]);
-		}
-		editor.commit();
+			
+			_sLastSystems[_sLastSystems.length - 1] = system;
+			
+			Editor editor = prefs.edit();
+			for(int i = 0; i < _sLastSystems.length; i++) {
+				editor.putInt("last" + i, _sLastSystems[i]);
+			}
+			editor.commit();
+		} else return;
 	}
 	
 	private void createDialog() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-		builder.setTitle(R.string.select_system_dialog_title);
-		builder.setItems(getHotItems(), new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {
-				int length = 3;
-				for(int i : _sHotSystems) if(i > 0) length++;
-				Log.d("which", "w = " + which + " / " + length);
-				switch(length - which) {
-				case 0: select(16); break;
-				case 1: select(10); break;
-				case 2: select(8); break;
-				case 3: select(2); break;
-				default: select(_sHotSystems[length - 4 - which]); break;
-				}
-			}
-		});
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+		int systemsAction = Integer.valueOf(prefs.getString("systems_action", "1"));
 		
-		builder.create().show();
+		switch(systemsAction) {
+		case 1:
+		case 2: {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+			builder.setTitle(R.string.select_system_dialog_title);
+			final String items[] = getHotItems();
+			builder.setItems(items, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					if(which >= 0 && which < items.length)
+						select(Integer.valueOf((String) items[which]));
+				}
+			});
+			builder.create().show();
+		} break;
+		case 3: {
+			String allItems[] = new String[35];
+			for(int i = 0; i < allItems.length; i++) 
+				allItems[i] = String.valueOf(i + 2);
+			
+			AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+			builder.setTitle(R.string.select_system_dialog_title);
+			builder.setItems(allItems, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					select(which + 2);
+				}
+			});
+			builder.create().show();
+		} break;
+		case 4:
+			final Dialog dialog = new Dialog(getContext());
+			dialog.setContentView(R.layout.all_systems_table);
+			dialog.setTitle(R.string.select_system_dialog_title);
+			
+			String allItems[] = new String[35];
+			for(int i = 0; i < allItems.length; i++) 
+				allItems[i] = String.valueOf(i + 2);
+			
+			GridView grid = (GridView) dialog.findViewById(R.id.systems);
+			grid.setAdapter(new ArrayAdapter<String>(getContext(), R.layout.number_system_item, 0, allItems));
+			grid.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> adapter, View view, int id, long pos) {
+					select(id + 2);
+					dialog.dismiss();
+				}
+			});
+			dialog.show();
+			break;
+		}
 	}
 	
-	private CharSequence[] getHotItems() {
-		int length = 4;
-		for(int i : _sHotSystems) if(i > 0) length++;
-		CharSequence result[] = new CharSequence[length];
+	private String[] getHotItems() {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 		
-		for(int i = 0; i < length; i++) {
-			switch(i) {
-			case 0: result[length - 1 - i] = "16"; break;
-			case 1: result[length - 1 - i] = "10"; break;
-			case 2: result[length - 1 - i] = "8"; break;
-			case 3: result[length - 1 - i] = "2"; break;
-			default: 
-				result[length - 1 - i] = String.valueOf(_sHotSystems[i - 4]); 
-				break;
+		boolean fixHots = prefs.getBoolean("hots_fix", true);
+		int systemsAction = Integer.valueOf(prefs.getString("systems_action", "1"));
+		String result[] = null;
+		
+		switch(systemsAction) {
+		case 1: {
+			ArrayList<String> resultList = new ArrayList<String>();
+			
+			boolean used[] = new boolean[_sHotSystems.length];
+			Arrays.fill(used, 0, used.length, false);
+			
+			for(int index = 0; index < 10; index++) {
+				int current = -1;
+				int max = 0;
+				
+				for(int i = 0; i < _sHotSystems.length; i++) {
+					if(used[i]) continue;
+					
+					if(_sHotSystems[i] > max) {
+						current = i;
+						max = _sHotSystems[i];
+					} else if(fixHots && (i == 0 || i == 6 || i == 8 || i == 14)) {
+						current = i;
+						max = Integer.MAX_VALUE;
+					}
+				}
+				
+				if(current == -1) return resultList.toArray(new String[0]);
+				resultList.add(String.valueOf(current + 2));
+				used[current] = true;
 			}
+			
+			result = resultList.toArray(new String[0]);
+		}
+		case 2: {
+			int length = fixHots ? 4 : 0;
+			for(int i : _sLastSystems) if(i > 0) length++;
+			result = new String[length];
+			if(fixHots) {
+				result[length - 1] = "2";
+				result[length - 2] = "8";
+				result[length - 3] = "10";
+				result[length - 4] = "16";
+			}
+			
+			for(int i = fixHots ? 4 : 0; i < length; i++) {
+				result[length - 1 - i] = String.valueOf(_sLastSystems[i - (fixHots ? 4 : 0)]); 
+			}
+			
+			return result;
+		}
 		}
 		
 		return result;
