@@ -42,7 +42,10 @@
     <string name="continue_label">Продолжить</string>
     <string name="send_me_bugs">Вы всегда можете прислать ваши предложения и замечания на\nwnezros@gmail.com</string>
     <string name="in_new_version">В новой версии:</string>
-    <string name="in_new_version_info">"3.0.3:
+    <string name="in_new_version_info">"3.0.4:
+- Исправления интерфейса
+
+3.0.3:
 - Добавлены настройки (действия при нажатии на поле ввода системы счисления и другое)
         
 3.0.2:

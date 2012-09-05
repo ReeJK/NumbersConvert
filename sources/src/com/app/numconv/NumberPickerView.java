@@ -312,6 +312,7 @@ public class NumberPickerView extends LinearLayout {
 			final Dialog dialog = new Dialog(getContext());
 			dialog.setContentView(R.layout.all_systems_table);
 			dialog.setTitle(R.string.select_system_dialog_title);
+			dialog.getWindow().setLayout(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 			
 			String allItems[] = new String[35];
 			for(int i = 0; i < allItems.length; i++) 

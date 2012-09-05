@@ -183,7 +183,7 @@ public class MainActivity extends BarActivity {
 			_keyboardView.invalidateAllKeys();
 		}
 	}
-	
+
 	public boolean onCreateOptionsMenu(Menu menu) {
        MenuInflater inflater = getSupportMenuInflater();
        inflater.inflate(R.menu.menu, menu);
@@ -203,5 +203,30 @@ public class MainActivity extends BarActivity {
 			break;
 		}
 		return super.onMenuItemSelected(featureId, item);
+	}
+	
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putInt("from", _fromView.getNumber());
+		outState.putInt("to", _toView.getNumber());
+		outState.putString("number", _numberView.getText().toString());
+	}
+	
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		int from = savedInstanceState.getInt("from", 0);
+		int to = savedInstanceState.getInt("to", 0);
+		String number = savedInstanceState.getString("number");
+		
+		if(from != 0) _fromView.select(from);
+		if(to != 0) _toView.select(to);
+		if(number != null) {
+			_numberView.setText(number);
+			
+			if(number.length() == 0) _resultView.setText("");
+			else try {
+				_resultView.setText(Converter.convert(number, _fromView.getNumber(), _toView.getNumber()));
+			} catch(NumberFormatException e) {
+				_resultView.setText("Change system or remove symbols");
+			}
+		}
 	}
 }

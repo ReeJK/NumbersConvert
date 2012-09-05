@@ -30,39 +30,68 @@ public class CalcActivity extends BarActivity {
 	}
 	
 	private class OperationButton implements OnClickListener {
-		private Button operations[] = new Button[4];
-		
-		private Operations operation;
+		private Button _operations[] = new Button[4];
+		private Operations _operation;
 		
 		public OperationButton() {
-			operations[0] = (Button) findViewById(R.id.operation_plus);
-			operations[1] = (Button) findViewById(R.id.operation_minus);
-			operations[2] = (Button) findViewById(R.id.operation_cross);
-			operations[3] = (Button) findViewById(R.id.operation_divide);
+			_operations[0] = (Button) findViewById(R.id.operation_plus);
+			_operations[1] = (Button) findViewById(R.id.operation_minus);
+			_operations[2] = (Button) findViewById(R.id.operation_cross);
+			_operations[3] = (Button) findViewById(R.id.operation_divide);
 			
-			for(Button button : operations) {
+			for(Button button : _operations) {
 				button.setOnClickListener(this);
 			}
 			
-			operations[0].setEnabled(false);
-			operation = Operations.PLUS;
+			_operations[0].setEnabled(false);
+			_operation = Operations.PLUS;
 		}
 
 		public void onClick(View v) {
-			for(Button button : operations) {
+			for(Button button : _operations) {
 				button.setEnabled(v != button);
 			}
 			
-			if(v == operations[0]) operation = Operations.PLUS;
-			else if(v == operations[1]) operation = Operations.MINUS;
-			else if(v == operations[2]) operation = Operations.CROSS;
-			else if(v == operations[3]) operation = Operations.DIVIDE;
+			if(v == _operations[0]) _operation = Operations.PLUS;
+			else if(v == _operations[1]) _operation = Operations.MINUS;
+			else if(v == _operations[2]) _operation = Operations.CROSS;
+			else if(v == _operations[3]) _operation = Operations.DIVIDE;
 			
 			updateResult();
 		}
 		
 		public Operations getOperation() {
-			return operation;
+			return _operation;
+		}
+		
+		public int getOperationInt() {
+			switch(_operation) {
+			case PLUS: return 1;
+			case MINUS: return 2;
+			case CROSS: return 3;
+			case DIVIDE: return 4;
+			}
+			return 0;
+		}
+		
+		public void setOperation(Operations operation) {
+			_operation = operation;
+			
+			for(Button button : _operations) {
+				button.setEnabled(true);
+			}
+			
+			switch(_operation) {
+			case PLUS: _operations[0].setEnabled(false); break;
+			case MINUS: _operations[1].setEnabled(false); break;
+			case CROSS: _operations[2].setEnabled(false); break;
+			case DIVIDE: _operations[3].setEnabled(false); break;
+			}
+		}
+		
+		public void setOperation(int operation) {
+			if(operation >= 1 && operation <= 4)
+				setOperation(Operations.values()[operation - 1]);
 		}
 	}
 	
@@ -72,7 +101,7 @@ public class CalcActivity extends BarActivity {
 	private ClearableEditText _numberView2;
 	private NumberPickerView _toView;
 	private EditText _resultView;
-	private OperationButton operation;
+	private OperationButton _operation;
 	
 	private KeyboardView _keyboardView;
 	
@@ -108,7 +137,7 @@ public class CalcActivity extends BarActivity {
 		_toView = (NumberPickerView)findViewById(R.id.to);
 		_resultView = (EditText)findViewById(R.id.result);
 		
-		operation = new OperationButton();
+		_operation = new OperationButton();
 		
 		_toView.setSolidRightStyle(true);
 		_resultView.setBackgroundResource(R.drawable.left_edittext_background);
@@ -221,7 +250,7 @@ public class CalcActivity extends BarActivity {
 			double value2 = Double.valueOf(Converter.convert(text2, _fromView2.getNumber(), 10, true));
 			double result = 0;
 			
-			switch(operation.getOperation()) {
+			switch(_operation.getOperation()) {
 			case PLUS: result = value1 + value2; break;
 			case MINUS: result = value1 - value2; break;
 			case CROSS: result = value1 * value2; break;
@@ -249,5 +278,32 @@ public class CalcActivity extends BarActivity {
 			Log.w("Calc", "NFE: " + e.getMessage());
 			_resultView.setText(R.string.change_number_system_error);
 		}
+	}
+	
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putInt("from1", _fromView1.getNumber());
+		outState.putInt("from2", _fromView2.getNumber());
+		outState.putString("number1", _numberView1.getText().toString());
+		outState.putString("number2", _numberView2.getText().toString());
+		outState.putInt("to", _toView.getNumber());
+		outState.putInt("operation", _operation.getOperationInt());
+	}
+	
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		int from1 = savedInstanceState.getInt("from1", 0);
+		int from2 = savedInstanceState.getInt("from2", 0);
+		String number1 = savedInstanceState.getString("number1");
+		String number2 = savedInstanceState.getString("number2");
+		int to = savedInstanceState.getInt("to", 0);
+		int operation = savedInstanceState.getInt("operation");
+		
+		if(from1 != 0) _fromView1.select(from1);
+		if(from2 != 0) _fromView2.select(from2);
+		if(to != 0) _toView.select(to);
+		if(number1 != null) _numberView1.setText(number1);
+		if(number2 != null) _numberView2.setText(number2);	
+		_operation.setOperation(operation);
+		
+		updateResult();
 	}
 }

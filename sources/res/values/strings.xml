@@ -47,7 +47,10 @@
     <string name="send_me_bugs">You can always send your suggestions and remarks on\nwnezros@gmail.com</string>
     <string name="email">wnezros@gmail.com</string>
     <string name="in_new_version">In new version:</string>
-    <string name="in_new_version_info">"3.0.3:
+    <string name="in_new_version_info">"3.0.4:
+- Fix interface
+        
+3.0.3:
 - Added settings (actions by clicking on the input field of the number system, etc.)
         
 3.0.2:
