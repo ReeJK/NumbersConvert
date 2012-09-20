@@ -11,7 +11,7 @@
 
         <com.app.numconv.NumberPickerView
             android:id="@+id/from1"
-            android:layout_width="130dp"
+            android:layout_width="@dimen/calc_np_width"
             android:layout_height="wrap_content">
         </com.app.numconv.NumberPickerView>
         
@@ -68,7 +68,7 @@
 
         <com.app.numconv.NumberPickerView
             android:id="@+id/from2"
-            android:layout_width="130dp"
+            android:layout_width="@dimen/calc_np_width"
             android:layout_height="wrap_content">
         </com.app.numconv.NumberPickerView>
         
@@ -87,7 +87,7 @@
 
         <com.app.numconv.NumberPickerView
             android:id="@+id/to"
-            android:layout_width="130dp"
+            android:layout_width="@dimen/calc_np_width"
             android:layout_height="wrap_content">
         </com.app.numconv.NumberPickerView>
         
@@ -97,6 +97,8 @@
 	        android:layout_height="wrap_content"
 	        android:hint="@string/result"
 	        android:selectAllOnFocus="true" 
+	        android:layout_marginBottom="@dimen/views_margin"
+    		android:layout_marginTop="@dimen/views_margin"
 		    android:editable="false" >
 	    </EditText>
     

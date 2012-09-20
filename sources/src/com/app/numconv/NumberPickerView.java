@@ -394,5 +394,12 @@ public class NumberPickerView extends LinearLayout {
 	public void setSolidRightStyle(boolean yes) {
 		_upButton.setBackgroundResource(
 				yes ? R.drawable.solid_button_background : R.drawable.right_button_background);
+		LinearLayout.LayoutParams lp = null;
+		if(yes) lp = new LinearLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.np_button_slim), 
+				LinearLayout.LayoutParams.WRAP_CONTENT);
+		else lp = new LinearLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.np_button), 
+				LinearLayout.LayoutParams.WRAP_CONTENT);
+		_upButton.setLayoutParams(lp);
+		_downButton.setLayoutParams(lp);
 	}
 }

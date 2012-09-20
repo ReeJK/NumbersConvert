@@ -12,8 +12,7 @@
         <com.app.numconv.NumberPickerView
             android:id="@+id/from"
             android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/from_label">
+            android:layout_height="wrap_content">
         </com.app.numconv.NumberPickerView>
 
         <com.app.numconv.ClearableEditText
@@ -30,7 +29,6 @@
         
         <com.app.numconv.NumberPickerView
             android:id="@+id/to"
-            android:hint="@string/to_label" 
             android:layout_width="130dp"
             android:layout_height="wrap_content"/>
         
@@ -41,6 +39,8 @@
             android:layout_width="fill_parent" 
             android:id="@+id/result" 
             android:editable="false" 
+            android:layout_marginBottom="@dimen/views_margin"
+    		android:layout_marginTop="@dimen/views_margin"
             android:hint="@string/result"/>
         
     </LinearLayout>

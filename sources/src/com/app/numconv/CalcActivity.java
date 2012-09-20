@@ -163,13 +163,16 @@ public class CalcActivity extends BarActivity {
 		
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		
-		if(preferences.getBoolean("use_app_keyboard", true))
-			_keyboardView = (KeyboardView) findViewById(R.id.keyboard);
-		else _keyboardView = null;
+		_keyboardView = (KeyboardView) findViewById(R.id.keyboard);
+		if(!preferences.getBoolean("use_app_keyboard", true)) {
+			_keyboardView.setVisibility(View.GONE);
+			_keyboardView = null;
+		}
 		
 		if(_keyboardView == null) {
 			_numberView1.setInputType(InputType.TYPE_CLASS_TEXT);
 			_numberView2.setInputType(InputType.TYPE_CLASS_TEXT);
+			_resultView.requestFocus();
 		} else {
 			_keyboardView.setOnKeyboardActionListener(new OnKeyboardActionListener() {
 	

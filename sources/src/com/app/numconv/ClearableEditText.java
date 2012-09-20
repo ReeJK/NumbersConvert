@@ -24,13 +24,14 @@ public class ClearableEditText extends RelativeLayout {
 	
 	private TextKeyListener _keyListener = new TextKeyListener(TextKeyListener.Capitalize.NONE, false) {
 		public int getInputType() {
-			return InputType.TYPE_NULL;
+			if(!_customInputType) return InputType.TYPE_NULL;
+			return _editText.getInputType();
 		}
 
 		public boolean onKeyDown(View view, Editable content, int keyCode, KeyEvent event) {
 			Log.d("keyDownContent", "content = " + content.toString());
 			boolean result = super.onKeyDown(view, content, keyCode, event);
-			if(_onKeyListener != null) _onKeyListener.onKey(view, keyCode, event);
+			//if(_onKeyListener != null) _onKeyListener.onKey(view, keyCode, event);
 			return result;
 		}
 		
@@ -52,6 +53,8 @@ public class ClearableEditText extends RelativeLayout {
 					s.delete(i, i+1);
 				}
 			}
+			
+			if(_onKeyListener != null) _onKeyListener.onKey(ClearableEditText.this, 0, null);
 		}
 
 		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -66,6 +69,7 @@ public class ClearableEditText extends RelativeLayout {
 	
 	private OnClearListener _onClearListener;
 	private OnKeyListener _onKeyListener;
+	private boolean _customInputType;
 	
 	public ClearableEditText(Context context) {
 		super(context);
@@ -86,6 +90,7 @@ public class ClearableEditText extends RelativeLayout {
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.clearable_edittext, this, true);
 		
+		_customInputType = false;
 		_editText = (EditText) findViewById(R.id.editText);
 		_clearButton = (ImageView) findViewById(R.id.clear);
 		
@@ -138,7 +143,8 @@ public class ClearableEditText extends RelativeLayout {
 	}
 	
 	public void setInputType(int type) {
-		_editText.setInputType(type);
+		_editText.setInputType(type | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+		_customInputType = true;
 	}
 	
 	public void setOnFocusChangeListener(OnFocusChangeListener l) {

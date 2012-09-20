@@ -66,6 +66,7 @@ public class MainActivity extends BarActivity {
 		_toView = (NumberPickerView)findViewById(R.id.to);
 		_resultView = (EditText)findViewById(R.id.result);
 		_numberView = (ClearableEditText)findViewById(R.id.number);
+		_resultView.setSingleLine();
 		
 		_fromView.setRange(2, 36);
 		_fromView.select(10);
@@ -138,12 +139,15 @@ public class MainActivity extends BarActivity {
 		
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		
-		if(preferences.getBoolean("use_app_keyboard", true))
-			_keyboardView = (KeyboardView) findViewById(R.id.keyboard);
-		else _keyboardView = null;
+		_keyboardView = (KeyboardView) findViewById(R.id.keyboard);
+		if(!preferences.getBoolean("use_app_keyboard", true)) {
+			_keyboardView.setVisibility(View.GONE);
+			_keyboardView = null;
+		}
 		
 		if(_keyboardView == null) {
 			_numberView.setInputType(InputType.TYPE_CLASS_TEXT);
+			_resultView.requestFocus();
 		} else {
 			_keyboardView.setOnKeyboardActionListener(new OnKeyboardActionListener() {
 	

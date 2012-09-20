@@ -22,7 +22,7 @@
 		
 		        <com.app.numconv.NumberPickerView
 		            android:id="@+id/from1"
-		            android:layout_width="130dp"
+		            android:layout_width="@dimen/calc_np_width"
 		            android:layout_height="wrap_content">
 		        </com.app.numconv.NumberPickerView>
 		        
@@ -41,7 +41,7 @@
 		
 		        <com.app.numconv.NumberPickerView
 		            android:id="@+id/from2"
-		            android:layout_width="130dp"
+		            android:layout_width="@dimen/calc_np_width"
 		            android:layout_height="wrap_content">
 		        </com.app.numconv.NumberPickerView>
 		        
@@ -63,7 +63,9 @@
 		    
 		    <LinearLayout
 		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content">
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="@dimen/views_margin"
+    			android:layout_marginTop="@dimen/views_margin">
 		
 		        <Button
 		            android:id="@+id/operation_plus"
@@ -105,7 +107,7 @@
 		
 		        <com.app.numconv.NumberPickerView
 		            android:id="@+id/to"
-		            android:layout_width="130dp"
+		            android:layout_width="@dimen/calc_np_width"
 		            android:layout_height="wrap_content">
 		        </com.app.numconv.NumberPickerView>
 		        
@@ -114,6 +116,8 @@
 			        android:layout_width="fill_parent"
 			        android:layout_height="wrap_content"
 			        android:hint="@string/result"
+			        android:layout_marginBottom="@dimen/views_margin"
+    				android:layout_marginTop="@dimen/views_margin"
 			        android:selectAllOnFocus="true" 
 				    android:editable="false" >
 			    </EditText>
