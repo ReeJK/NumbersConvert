@@ -6,6 +6,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.app.numconv.ClearableEditText.OnClearListener;
 import com.app.numconv.NumberPickerView.OnChangeListener;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +16,7 @@ import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
+import android.text.Html;
 import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -23,6 +25,7 @@ import android.view.View.OnFocusChangeListener;
 import android.view.View.OnKeyListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends BarActivity {
 	private NumberPickerView _fromView;
@@ -36,7 +39,7 @@ public class MainActivity extends BarActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main, R.layout.titlebar);
+		setContentView(R.layout.main);
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 		PreferencesActivity.setDefaultValues(this);
@@ -199,6 +202,9 @@ public class MainActivity extends BarActivity {
 		case R.id.calculatorButton:
 			startActivity(new Intent(this, CalcActivity.class));
 			break;
+		case R.id.solutionButton:
+			showSolution();
+			break;
 		case R.id.preferencesButton:
 			startActivity(new Intent(this, PreferencesActivity.class));
 			break;
@@ -232,5 +238,81 @@ public class MainActivity extends BarActivity {
 				_resultView.setText("Change system or remove symbols");
 			}
 		}
+	}
+	
+	private void showSolution() {
+		String input = _numberView.getText().toString();
+		int from = _fromView.getNumber();
+		int to = _toView.getNumber();
+		
+		if(input.length() == 0) return;
+		
+		String decimal, result;
+		try {
+			decimal = Converter.convert(input, from, 10);
+			result = Converter.convert(input, from, to);
+		} catch(Exception e) {
+			return;
+		}
+		
+		Dialog dialog = new Dialog(this);
+		dialog.setContentView(R.layout.solution);
+		dialog.setTitle(R.string.solution);
+		TextView solutionView = (TextView) dialog.findViewById(R.id.solution);
+		
+		Converter converter = new Converter(input, from);
+		StringBuilder sb = new StringBuilder();
+		
+		if(from != 10) {
+			sb.append(getString(R.string.solution_from));
+			sb.append(" ");
+			sb.append(from);
+			sb.append(" ");
+			sb.append(getString(R.string.solution_to_dec));
+			sb.append("<br>");
+			
+			sb.append(input);
+			sb.append("<sub>");
+			sb.append(from);
+			sb.append("</sub>");
+			sb.append(" = ");
+			sb.append(converter.getSolution(Converter.SolutionStep.TO_DEC_FIRST));
+			sb.append(" = ");
+			sb.append(converter.getSolution(Converter.SolutionStep.TO_DEC_SECOND));
+			sb.append(" = ");
+			sb.append(decimal);
+			sb.append("<sub>10</sub><br>");
+		}
+		
+		if(to != 10) {
+			sb.append("<br>");
+			sb.append(getString(R.string.solution_from_dec_to));
+			sb.append(" ");
+			sb.append(to);
+			sb.append("<br>");
+			sb.append(converter.getSolution(decimal, to));
+		}
+		
+		sb.append("<br>");
+		sb.append(getString(R.string.solution_answer));
+		sb.append("<br>");
+		sb.append(input);
+		sb.append("<sub>");
+		sb.append(from);
+		sb.append("</sub> = ");
+		
+		if(from != 10 && to != 10) {
+			sb.append(decimal);
+			sb.append("<sub>10</sub> = ");
+		}
+		
+		sb.append(result);
+		sb.append("<sub>");
+		sb.append(to);
+		sb.append("</sub>");
+		
+		solutionView.setText(Html.fromHtml(sb.toString()));
+		
+		dialog.show();
 	}
 }

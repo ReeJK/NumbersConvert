@@ -1,8 +1,17 @@
 package com.app.numconv;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class Converter {
+	
+	public static enum SolutionStep {
+		TO_DEC_FIRST,
+		TO_DEC_SECOND
+	}
+	
+	public static final String dot = " &middot; ";
 	
 	public static String convert(String input, int from, int to) {
 		return Converter.convert(input, from, to, false);
@@ -17,7 +26,7 @@ public class Converter {
 	private int _inputSystem;
 	private boolean _minus;
 
-	private Converter(String input, int system) {
+	public Converter(String input, int system) {
 		_inputSystem = system;
 		
 		_minus = input.charAt(0) == '-';
@@ -117,5 +126,107 @@ public class Converter {
 		}
 		
 		return resultBuilder.toString();
+	}
+	
+	public String getSolution(SolutionStep step) {
+		switch(step) {
+		case TO_DEC_FIRST: {
+			StringBuilder sb = new StringBuilder();
+			for(int i = 0; i < _inputInteger.length; i++) {
+				if(i > 0 || _minus) sb.append(_minus ? " - " : " + ");
+				
+				sb.append(_inputInteger[i]);
+				sb.append(Converter.dot);
+				sb.append(_inputSystem);
+				sb.append("<sup>");
+				sb.append(_inputInteger.length - i - 1);
+				sb.append("</sup>");
+			}
+			for(int i = 0; i < _inputFractional.length; i++) {
+				sb.append(_minus ? " - " : " + ");
+				
+				sb.append(_inputFractional[i]);
+				sb.append(Converter.dot);
+				sb.append(_inputSystem);
+				sb.append("<sup>-");
+				sb.append(i + 1);
+				sb.append("</sup>");
+			}
+			return sb.toString();
+		}
+		case TO_DEC_SECOND: {
+			StringBuilder sb = new StringBuilder();
+			for(int i = 0; i < _inputInteger.length; i++) {
+				if(i > 0 || _minus) sb.append(_minus ? " - " : " + ");
+				BigInteger bi = BigInteger.valueOf(_inputSystem);
+				bi = bi.pow(_inputInteger.length - i - 1);
+				bi = bi.multiply(BigInteger.valueOf(_inputInteger[i]));
+				sb.append(bi);
+			}
+			for(int i = 0; i < _inputFractional.length; i++) {
+				sb.append(_minus ? " - " : " + ");
+				BigDecimal bi = BigDecimal.valueOf(_inputSystem);
+				bi = bi.pow(i + 1);
+				bi = BigDecimal.valueOf(_inputFractional[i]).divide(bi);
+				sb.append(bi);
+			}
+			return sb.toString();
+		}
+		default:
+			return null;
+		}
+	}
+	
+	public String getSolution(String decimal, int system) {
+		int dot = decimal.indexOf('.');
+		String fraction = "";
+		if(dot >= 0) {
+			BigDecimal dec = new BigDecimal('0' + decimal.substring(dot));
+			BigDecimal bigSystem = BigDecimal.valueOf(system);
+			StringBuilder sb = new StringBuilder();
+			
+			int i = 0;
+			while(dec.compareTo(BigDecimal.ZERO) != 0 && i < 16) {
+				sb.append(dec);
+				sb.append(Converter.dot);
+				sb.append(system);
+				
+				dec = dec.multiply(bigSystem);
+				
+				sb.append(" = ");
+				sb.append("<u>");
+				sb.append(dec.intValue());
+				sb.append("</u>.");
+				dec = dec.subtract(BigDecimal.valueOf(dec.intValue()));
+				sb.append(dec.toString().substring(2));
+				sb.append("<br>");
+				
+				i++;
+			}
+			
+			if(i == 16 && dec.compareTo(BigDecimal.ZERO) != 0) sb.append("...");
+			fraction = sb.toString();
+		}
+		
+		BigInteger dec = new BigInteger(dot == -1 ? decimal : decimal.substring(0, dot));
+		BigInteger bigSystem = BigInteger.valueOf(system);
+		StringBuilder sb = new StringBuilder();
+		
+		while(dec.compareTo(BigInteger.ZERO) != 0) {
+			sb.append(dec);
+			sb.append(" = ");
+			sb.append(system);
+			sb.append(Converter.dot);
+			
+			BigInteger next = dec.divide(bigSystem);
+			sb.append(next);
+			sb.append(" + <u>");
+			sb.append(dec.mod(bigSystem));
+			sb.append("</u><br>");
+			dec = next;
+		}
+		
+		sb.append(fraction);
+		return sb.toString();
 	}
 };

@@ -16,7 +16,14 @@
     <string name="from_label">Из</string>
     <string name="to_label">В</string>
     <string name="change_number_system_error">Измените систему счисления или удалите не корректные символы</string>
-
+    
+    <!-- Solution -->
+	<string name="solution">Решение</string>
+    <string name="solution_from">Переводим из</string>
+    <string name="solution_to_dec">в десятичную</string>
+    <string name="solution_from_dec_to">Переводим из десятичной в </string>
+    <string name="solution_answer">Ответ (подчёркнутые цифры, целая часть в обратном порядке)</string>
+	
     <!-- CalcActivity -->
     <string name="infinity">"Бесконечность"</string>
 

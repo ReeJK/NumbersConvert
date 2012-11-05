@@ -17,6 +17,13 @@
     <string name="to_label">To</string>
     <string name="change_number_system_error">Change system or remove wrong symbols</string>
     
+    <!-- Solution -->
+	<string name="solution">Solution</string>
+    <string name="solution_from">Converting from</string>
+    <string name="solution_to_dec">to decimal</string>
+    <string name="solution_from_dec_to">Converting from decimal to</string>
+    <string name="solution_answer">Answer (underlined digits, the integral part in reverse order)</string>
+    
     <!-- CalcActivity -->
     <string name="operation_plus">"&#43;"</string>
     <string name="operation_minus">"&#8722;"</string>

@@ -126,7 +126,7 @@ public class CalcActivity extends BarActivity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.calc, R.layout.titlebar);
+        setContentView(R.layout.calc);
         
         //findViewById(R.id.calculatorButton).setVisibility(View.GONE);
         

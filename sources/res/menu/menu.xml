@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item android:id="@+id/solutionButton" 
+        android:title="@string/solution" 
+        android:icon="@drawable/solution_icon"
+        android:showAsAction="always|withText" />
+    
     <item android:id="@+id/calculatorButton" 
         android:title="@string/calculator" 
         android:icon="@drawable/calculator_icon" 
