@@ -2,6 +2,7 @@ package com.app.numconv;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class Converter {
@@ -167,7 +168,7 @@ public class Converter {
 				sb.append(_minus ? " - " : " + ");
 				BigDecimal bi = BigDecimal.valueOf(_inputSystem);
 				bi = bi.pow(i + 1);
-				bi = BigDecimal.valueOf(_inputFractional[i]).divide(bi);
+				bi = BigDecimal.valueOf(_inputFractional[i]).divide(bi, 2, RoundingMode.HALF_UP);
 				sb.append(bi);
 			}
 			return sb.toString();

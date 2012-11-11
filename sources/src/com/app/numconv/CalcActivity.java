@@ -1,6 +1,7 @@
 package com.app.numconv;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
@@ -340,7 +341,7 @@ public class CalcActivity extends BarActivity {
 			case MINUS: operationResult = value1.subtract(value2).toString(); break;
 			case CROSS: operationResult = value1.multiply(value2).toString(); break;
 			case DIVIDE: 
-				operationResult = value2.compareTo(BigDecimal.ZERO) == 0 ? "0" : value1.divide(value2).toString(); 
+				operationResult = value2.compareTo(BigDecimal.ZERO) == 0 ? "0" : value1.divide(value2, 2, RoundingMode.HALF_UP).toString(); 
 				break;
 			default: operationResult = value1.toString();
 			}
