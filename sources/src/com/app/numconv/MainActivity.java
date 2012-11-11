@@ -18,11 +18,12 @@ import android.preference.PreferenceManager;
 
 import android.text.Html;
 import android.text.InputType;
-import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnKeyListener;
+import android.view.View.OnTouchListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -54,9 +55,7 @@ public class MainActivity extends BarActivity {
 				.putInt("run", versionCode)
 				.commit();
 			
-			Intent intent = new Intent(this, NewsActivity.class);
-			intent.putExtra("createNew", false);
-			startActivity(intent);
+			startActivity(new Intent(this, NewsActivity.class));
 		}
 		
 		/*findViewById(R.id.calculatorButton).setOnClickListener(new OnClickListener() {
@@ -98,6 +97,19 @@ public class MainActivity extends BarActivity {
 		
 		_fromView.setOnChangeListener(onNumberChangeListener);
 		_toView.setOnChangeListener(onNumberChangeListener);
+
+		_numberView.setOnTouchListener(new OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if(_keyboardView != null) { 
+					InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(
+							Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(_numberView.getWindowToken(), 0);
+				}
+				
+				return true;
+			}
+		});
 		
 		_numberView.setOnKeyListener(new OnKeyListener() {
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -123,11 +135,6 @@ public class MainActivity extends BarActivity {
 				if(_keyboardView == null) return;
 				
 				_keyboardView.setVisibility(hasFocus ? View.VISIBLE : View.GONE);
-				if(hasFocus) {
-					InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(
-							Context.INPUT_METHOD_SERVICE);
-					imm.hideSoftInputFromWindow(_numberView.getWindowToken(), 0);
-				}
 			}
 		});
 		
@@ -155,28 +162,13 @@ public class MainActivity extends BarActivity {
 			_keyboardView.setOnKeyboardActionListener(new OnKeyboardActionListener() {
 	
 				public void onKey(int primaryCode, int[] keyCodes) {
-					
-					Log.d("keyboard", "primaryCode = " + primaryCode);
 					getCurrentFocus().onKeyDown(primaryCode, 
 							new KeyEvent(KeyEvent.ACTION_DOWN, primaryCode));
 				}
 	
-				public void onPress(int primaryCode) {
-					Log.d("keyboardPress", "primaryCode = " + primaryCode);
-					//getCurrentFocus().onKeyDown(primaryCode, 
-					//		new KeyEvent(KeyEvent.ACTION_DOWN, primaryCode));
-				}
-				
-				public void onRelease(int primaryCode) {
-					Log.d("keyboardRelease", "primaryCode = " + primaryCode);
-					//getCurrentFocus().onKeyUp(primaryCode, 
-					//		new KeyEvent(KeyEvent.ACTION_UP, primaryCode));
-				}
-				
-				public void onText(CharSequence text) {
-					Log.d("keyboardText", "text = " + text);
-				}
-				
+				public void onPress(int primaryCode) { }
+				public void onRelease(int primaryCode) { }
+				public void onText(CharSequence text) {	}
 				public void swipeDown() { }
 				public void swipeLeft() { }
 				public void swipeRight() { }
@@ -200,7 +192,7 @@ public class MainActivity extends BarActivity {
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		switch(item.getItemId()) {
 		case R.id.calculatorButton:
-			startActivity(new Intent(this, CalcActivity.class));
+			startActivityForResult(new Intent(this, CalcActivity.class), 0);
 			break;
 		case R.id.solutionButton:
 			showSolution();
@@ -210,9 +202,15 @@ public class MainActivity extends BarActivity {
 			break;
 		case android.R.id.home:
 			startActivity(new Intent(this, NewsActivity.class));
-			break;
+			return true;
 		}
 		return super.onMenuItemSelected(featureId, item);
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		_resultView.requestFocus();
+		_numberView.requestFocus();
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 	
 	protected void onSaveInstanceState(Bundle outState) {
@@ -260,10 +258,11 @@ public class MainActivity extends BarActivity {
 		dialog.setTitle(R.string.solution);
 		TextView solutionView = (TextView) dialog.findViewById(R.id.solution);
 		
-		Converter converter = new Converter(input, from);
 		StringBuilder sb = new StringBuilder();
 		
 		if(from != 10) {
+			Converter converter = new Converter(input, from);
+			
 			sb.append(getString(R.string.solution_from));
 			sb.append(" ");
 			sb.append(from);
@@ -290,7 +289,7 @@ public class MainActivity extends BarActivity {
 			sb.append(" ");
 			sb.append(to);
 			sb.append("<br>");
-			sb.append(converter.getSolution(decimal, to));
+			sb.append(Converter.getSolution(decimal, to));
 		}
 		
 		sb.append("<br>");

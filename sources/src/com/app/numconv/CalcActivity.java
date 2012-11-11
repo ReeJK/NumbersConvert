@@ -1,17 +1,22 @@
 package com.app.numconv;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.app.numconv.ClearableEditText.OnClearListener;
 import com.app.numconv.NumberPickerView.OnChangeListener;
 
-import android.content.Context;
+import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.inputmethodservice.KeyboardView;
 import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Html;
 import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -19,9 +24,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnKeyListener;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class CalcActivity extends BarActivity {
 	
@@ -177,21 +182,12 @@ public class CalcActivity extends BarActivity {
 			_keyboardView.setOnKeyboardActionListener(new OnKeyboardActionListener() {
 	
 				public void onKey(int primaryCode, int[] keyCodes) {
-					
-					Log.d("keyboard", "primaryCode = " + primaryCode);
-					
 					getCurrentFocus().onKeyDown(primaryCode, 
 							new KeyEvent(KeyEvent.ACTION_DOWN, primaryCode));
 				}
 	
-				public void onPress(int primaryCode) {
-					//getCurrentFocus().onKeyDown(primaryCode, 
-					//		new KeyEvent(KeyEvent.ACTION_DOWN, primaryCode));
-				}
-				public void onRelease(int primaryCode) {
-					//getCurrentFocus().onKeyUp(primaryCode, 
-					//		new KeyEvent(KeyEvent.ACTION_UP, primaryCode));
-				}
+				public void onPress(int primaryCode) { }
+				public void onRelease(int primaryCode) { }
 				public void onText(CharSequence text) { }
 				public void swipeDown() { }
 				public void swipeLeft() { }
@@ -232,11 +228,7 @@ public class CalcActivity extends BarActivity {
 			public void onFocusChange(View v, boolean hasFocus) {
 				if(_keyboardView == null) return;
 				_keyboardView.setVisibility(hasFocus ? View.VISIBLE : View.GONE);
-				if(hasFocus) {
-					InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(
-							Context.INPUT_METHOD_SERVICE);
-					imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-					
+				if(hasFocus) {					
 					ThisApplication app = (ThisApplication) getApplication();
 					_keyboardView.setKeyboard(app.getKeyboard(np.getNumber()));
 				}
@@ -249,22 +241,22 @@ public class CalcActivity extends BarActivity {
 		String text2 = _numberView2.getText().toString();
 		if(text1.length() == 0 || text2.length() == 0) _resultView.setText("");
 		else try {
-			double value1 = Double.valueOf(Converter.convert(text1, _fromView1.getNumber(), 10, true));
-			double value2 = Double.valueOf(Converter.convert(text2, _fromView2.getNumber(), 10, true));
-			double result = 0;
+			BigDecimal value1 = new BigDecimal(Converter.convert(text1, _fromView1.getNumber(), 10, true));
+			BigDecimal value2 = new BigDecimal(Converter.convert(text2, _fromView2.getNumber(), 10, true));
+			BigDecimal result = BigDecimal.ZERO;
 			
 			switch(_operation.getOperation()) {
-			case PLUS: result = value1 + value2; break;
-			case MINUS: result = value1 - value2; break;
-			case CROSS: result = value1 * value2; break;
+			case PLUS: result = value1.add(value2); break;
+			case MINUS: result = value1.subtract(value2); break;
+			case CROSS: result = value1.multiply(value2); break;
 			case DIVIDE: 
-				result = value2 == 0 ? 0 : value1 / value2; 
+				result = value2.compareTo(BigDecimal.ZERO) == 0 ? BigDecimal.ZERO : value1.divide(value2); 
 				break;
 			default: result = value1;
 			}
 			
-			boolean minus_sign = result < 0;
-			if(minus_sign) result = Math.abs(result);
+			boolean minus_sign = result.compareTo(BigDecimal.ZERO) < 0;
+			if(minus_sign) result = result.abs();
 			
 			DecimalFormatSymbols formatSymbols = new DecimalFormatSymbols();
 			formatSymbols.setDecimalSeparator('.');
@@ -274,7 +266,7 @@ public class CalcActivity extends BarActivity {
 			format.setMaximumFractionDigits(20);
 			format.setGroupingUsed(false);
 			
-			if(Double.isInfinite(result)) _resultView.setText(R.string.infinity);
+			if(Double.isInfinite(result.doubleValue())) _resultView.setText(R.string.infinity);
 			else _resultView.setText((minus_sign ? "-" : "") + 
 					Converter.convert(format.format(result), 10, _toView.getNumber()));
 		} catch(NumberFormatException e) {
@@ -308,5 +300,168 @@ public class CalcActivity extends BarActivity {
 		_operation.setOperation(operation);
 		
 		updateResult();
+	}
+	
+	public boolean onCreateOptionsMenu(Menu menu) {
+       MenuInflater inflater = getSupportMenuInflater();
+       inflater.inflate(R.menu.calc_menu, menu);
+       return super.onCreateOptionsMenu(menu);
+    }
+		
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		switch(item.getItemId()) {
+		case R.id.solutionButton:
+			showSolution();
+			break;
+		}
+		return super.onMenuItemSelected(featureId, item);
+	}
+	
+	private void showSolution() {
+		String text1 = _numberView1.getText().toString();
+		String text2 = _numberView2.getText().toString();
+		
+		int from1 = _fromView1.getNumber();
+		int from2 = _fromView2.getNumber();
+		int to = _toView.getNumber();
+		
+		if(text1.length() == 0 || text2.length() == 0) return;
+		
+		String decimal1, decimal2, operationResult, result;
+		try {
+			decimal1 = Converter.convert(text1, from1, 10);
+			decimal2 = Converter.convert(text2, from2, 10);
+			
+			BigDecimal value1 = new BigDecimal(decimal1);
+			BigDecimal value2 = new BigDecimal(decimal2);
+			
+			switch(_operation.getOperation()) {
+			case PLUS: operationResult = value1.add(value2).toString(); break;
+			case MINUS: operationResult = value1.subtract(value2).toString(); break;
+			case CROSS: operationResult = value1.multiply(value2).toString(); break;
+			case DIVIDE: 
+				operationResult = value2.compareTo(BigDecimal.ZERO) == 0 ? "0" : value1.divide(value2).toString(); 
+				break;
+			default: operationResult = value1.toString();
+			}
+			
+			result = Converter.convert(operationResult, 10, to);
+		} catch(Exception e) {
+			return;
+		}
+		
+		Dialog dialog = new Dialog(this);
+		dialog.setContentView(R.layout.solution);
+		dialog.setTitle(R.string.solution);
+		TextView solutionView = (TextView) dialog.findViewById(R.id.solution);
+		
+		StringBuilder sb = new StringBuilder();
+		
+		if(from1 != 10) {
+			Converter converter = new Converter(text1, from1);
+			
+			sb.append(getString(R.string.solution_from));
+			sb.append(" ");
+			sb.append(from1);
+			sb.append(" ");
+			sb.append(getString(R.string.solution_to_dec));
+			sb.append("<br>");
+			
+			sb.append(text1);
+			sb.append("<sub>");
+			sb.append(from1);
+			sb.append("</sub>");
+			sb.append(" = ");
+			sb.append(converter.getSolution(Converter.SolutionStep.TO_DEC_FIRST));
+			sb.append(" = ");
+			sb.append(converter.getSolution(Converter.SolutionStep.TO_DEC_SECOND));
+			sb.append(" = ");
+			sb.append(decimal1);
+			sb.append("<sub>10</sub><br>");
+		}
+		
+		if(from2 != 10) {
+			Converter converter = new Converter(text2, from2);
+			
+			sb.append(getString(R.string.solution_from));
+			sb.append(" ");
+			sb.append(from2);
+			sb.append(" ");
+			sb.append(getString(R.string.solution_to_dec));
+			sb.append("<br>");
+			
+			sb.append(text2);
+			sb.append("<sub>");
+			sb.append(from2);
+			sb.append("</sub>");
+			sb.append(" = ");
+			sb.append(converter.getSolution(Converter.SolutionStep.TO_DEC_FIRST));
+			sb.append(" = ");
+			sb.append(converter.getSolution(Converter.SolutionStep.TO_DEC_SECOND));
+			sb.append(" = ");
+			sb.append(decimal2);
+			sb.append("<sub>10</sub><br>");
+		}
+		
+		sb.append(getString(R.string.solution_operation));
+		sb.append("<br>");
+		sb.append(decimal1);
+		sb.append(getOperationSign());
+		sb.append(decimal2);
+		sb.append(" = ");
+		sb.append(operationResult);
+		sb.append("<br>");
+		
+		if(to != 10) {
+			sb.append("<br>");
+			sb.append(getString(R.string.solution_from_dec_to));
+			sb.append(" ");
+			sb.append(to);
+			sb.append("<br>");
+			if(operationResult.charAt(0) == '-')
+				sb.append(Converter.getSolution(operationResult.substring(1), to));
+			else
+				sb.append(Converter.getSolution(operationResult, to));
+		}
+		
+		sb.append("<br>");
+		sb.append(getString(R.string.solution_answer));
+		sb.append("<br>");
+		sb.append(text1);
+		sb.append("<sub>");
+		sb.append(from1);
+		sb.append("</sub>");
+		sb.append(getOperationSign());
+		sb.append(text2);
+		sb.append("<sub>");
+		sb.append(from2);
+		sb.append("</sub> = ");
+		
+		if(from1 != 10 && from2 != 10) {
+			sb.append(decimal1);
+			sb.append("<sub>10</sub>");
+			sb.append(getOperationSign());
+			sb.append(decimal2);
+			sb.append("<sub>10</sub> = ");
+		}
+		
+		sb.append(result);
+		sb.append("<sub>");
+		sb.append(to);
+		sb.append("</sub>");
+		
+		solutionView.setText(Html.fromHtml(sb.toString()));
+		
+		dialog.show();
+	}
+	
+	private String getOperationSign() {
+		switch(_operation.getOperation()) {
+		case PLUS: return " + ";
+		case MINUS: return " - ";
+		case CROSS: return Converter.dot;
+		case DIVIDE: return " / ";
+		default: return " ? ";
+		}
 	}
 }

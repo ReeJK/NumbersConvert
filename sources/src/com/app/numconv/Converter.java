@@ -177,7 +177,7 @@ public class Converter {
 		}
 	}
 	
-	public String getSolution(String decimal, int system) {
+	public static String getSolution(String decimal, int system) {
 		int dot = decimal.indexOf('.');
 		String fraction = "";
 		if(dot >= 0) {
@@ -187,7 +187,9 @@ public class Converter {
 			
 			int i = 0;
 			while(dec.compareTo(BigDecimal.ZERO) != 0 && i < 16) {
+				sb.append("<b>");
 				sb.append(dec);
+				sb.append("</b>");
 				sb.append(Converter.dot);
 				sb.append(system);
 				
@@ -198,8 +200,9 @@ public class Converter {
 				sb.append(dec.intValue());
 				sb.append("</u>.");
 				dec = dec.subtract(BigDecimal.valueOf(dec.intValue()));
+				sb.append("<b>");
 				sb.append(dec.toString().substring(2));
-				sb.append("<br>");
+				sb.append("</b><br>");
 				
 				i++;
 			}
@@ -213,14 +216,16 @@ public class Converter {
 		StringBuilder sb = new StringBuilder();
 		
 		while(dec.compareTo(BigInteger.ZERO) != 0) {
+			sb.append("<b>");
 			sb.append(dec);
-			sb.append(" = ");
+			sb.append("</b> = ");
 			sb.append(system);
 			sb.append(Converter.dot);
 			
 			BigInteger next = dec.divide(bigSystem);
+			sb.append("<b>");
 			sb.append(next);
-			sb.append(" + <u>");
+			sb.append("</b> + <u>");
 			sb.append(dec.mod(bigSystem));
 			sb.append("</u><br>");
 			dec = next;

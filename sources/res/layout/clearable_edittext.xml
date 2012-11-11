@@ -5,7 +5,7 @@
     android:layout_marginBottom="@dimen/views_margin"
     android:layout_marginTop="@dimen/views_margin" >
 
-    <EditText
+    <com.app.numconv.FixedEditText
         android:id="@+id/editText"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

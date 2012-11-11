@@ -11,6 +11,7 @@
         <item name="android:paddingLeft">24px</item>
         <item name="android:paddingRight">24px</item>-->
         <item name="android:minHeight">@dimen/min_edittext_height</item>
+        <item name="android:textCursorDrawable">@null</item>
 	</style>
 	<style name="LeftEditText" parent="EditText">
 		<item name="android:textColor">#FF000000</item>

@@ -23,6 +23,7 @@
     <string name="solution_to_dec">в десятичную</string>
     <string name="solution_from_dec_to">Переводим из десятичной в </string>
     <string name="solution_answer">Ответ (подчёркнутые цифры, целая часть в обратном порядке)</string>
+    <string name="solution_operation">Производим нужное действие</string>
 	
     <!-- CalcActivity -->
     <string name="infinity">"Бесконечность"</string>
@@ -49,16 +50,23 @@
     <string name="continue_label">Продолжить</string>
     <string name="send_me_bugs">Вы всегда можете прислать ваши предложения и замечания на\nwnezros@gmail.com</string>
     <string name="in_new_version">В новой версии:</string>
-    <string name="in_new_version_info">"3.0.5:
+    <string name="in_new_version_info">"3.1.1:
+- Добавлено решение в калькуляторе
+- Добавлен курсор в текстовые поля
+
+3.1.0:
+- Добавлено решение
+
+3.0.5:
 - Исправлен вылет при использовании системной клавиатуры
 - Улучшен интерфейс для устройств с маленьким разрешением экрана
-  
+
 3.0.4:
 - Исправления интерфейса
 
 3.0.3:
 - Добавлены настройки (действия при нажатии на поле ввода системы счисления и другое)
-        
+
 3.0.2:
 - Перевод дробных чисел
 - Исправления интерфейса

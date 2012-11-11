@@ -23,6 +23,7 @@
     <string name="solution_to_dec">to decimal</string>
     <string name="solution_from_dec_to">Converting from decimal to</string>
     <string name="solution_answer">Answer (underlined digits, the integral part in reverse order)</string>
+    <string name="solution_operation">Produce the required action</string>
     
     <!-- CalcActivity -->
     <string name="operation_plus">"&#43;"</string>
@@ -54,7 +55,14 @@
     <string name="send_me_bugs">You can always send your suggestions and remarks on\nwnezros@gmail.com</string>
     <string name="email">wnezros@gmail.com</string>
     <string name="in_new_version">In new version:</string>
-    <string name="in_new_version_info">"3.0.5:
+    <string name="in_new_version_info">"3.1.1:
+- Added solution in calculator
+- Added cursor in text fields
+        
+3.1.0:
+- Solution added
+        
+3.0.5:
 - Fixed crash when using the system keyboard
 - Improved interface for devices with small screen resolution
 

@@ -1,6 +1,5 @@
 package com.app.numconv;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,8 +18,6 @@ public class NewsActivity extends BarActivity implements OnClickListener {
 	}
 	
 	public void onBackPressed() {
-		if(getIntent().getBooleanExtra("createNew", true))
-			startActivity(new Intent(NewsActivity.this, MainActivity.class));
 		finish();
 	}
 

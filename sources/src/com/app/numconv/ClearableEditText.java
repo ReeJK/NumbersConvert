@@ -101,6 +101,7 @@ public class ClearableEditText extends RelativeLayout {
 		
 		_editText.setKeyListener(_keyListener);
 		_editText.addTextChangedListener(_textWatcher);
+		_editText.setCursorVisible(true);
 		
 		params.recycle();
 		
