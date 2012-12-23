@@ -251,7 +251,8 @@ public class CalcActivity extends BarActivity {
 			case MINUS: result = value1.subtract(value2); break;
 			case CROSS: result = value1.multiply(value2); break;
 			case DIVIDE: 
-				result = value2.compareTo(BigDecimal.ZERO) == 0 ? BigDecimal.ZERO : value1.divide(value2); 
+				result = value2.compareTo(BigDecimal.ZERO) == 0 ? 
+						BigDecimal.ZERO : value1.divide(value2, 2, RoundingMode.HALF_UP); 
 				break;
 			default: result = value1;
 			}

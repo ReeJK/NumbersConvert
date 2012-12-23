@@ -50,7 +50,14 @@
     <string name="continue_label">Продолжить</string>
     <string name="send_me_bugs">Вы всегда можете прислать ваши предложения и замечания на\nwnezros@gmail.com</string>
     <string name="in_new_version">В новой версии:</string>
-    <string name="in_new_version_info">"3.1.1:
+    <string name="in_new_version_info">"3.1.3:
+- Исправлено деление в калькуляторе
+- Улучшено отображение на планшетах
+
+3.1.2:
+- Исправления ошибок
+
+3.1.1:
 - Добавлено решение в калькуляторе
 - Добавлен курсор в текстовые поля
 

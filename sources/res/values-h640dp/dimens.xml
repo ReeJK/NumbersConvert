@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="key_height">70dp</dimen>
+    <dimen name="np_button">40dp</dimen>
+    <dimen name="np_button_slim">40dp</dimen>
+    <dimen name="calc_np_width">130dp</dimen>
+    <dimen name="min_edittext_height">54dp</dimen>
+</resources>
