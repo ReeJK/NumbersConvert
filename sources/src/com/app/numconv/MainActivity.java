@@ -247,7 +247,7 @@ public class MainActivity extends BarActivity {
 		
 		String decimal, result;
 		try {
-			decimal = Converter.convert(input, from, 10);
+			decimal = Converter.convert(input, from, 10, true);
 			result = Converter.convert(input, from, to);
 		} catch(Exception e) {
 			return;

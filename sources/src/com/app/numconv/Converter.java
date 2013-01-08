@@ -129,7 +129,7 @@ public class Converter {
 		return resultBuilder.toString();
 	}
 	
-	public String getSolution(SolutionStep step) {
+	public String getSolution(SolutionStep step) {	
 		switch(step) {
 		case TO_DEC_FIRST: {
 			StringBuilder sb = new StringBuilder();
@@ -162,14 +162,14 @@ public class Converter {
 				BigInteger bi = BigInteger.valueOf(_inputSystem);
 				bi = bi.pow(_inputInteger.length - i - 1);
 				bi = bi.multiply(BigInteger.valueOf(_inputInteger[i]));
-				sb.append(bi);
+				sb.append(bi.toString());
 			}
 			for(int i = 0; i < _inputFractional.length; i++) {
 				sb.append(_minus ? " - " : " + ");
 				BigDecimal bi = BigDecimal.valueOf(_inputSystem);
 				bi = bi.pow(i + 1);
 				bi = BigDecimal.valueOf(_inputFractional[i]).divide(bi, 2, RoundingMode.HALF_UP);
-				sb.append(bi);
+				sb.append(bi.toString());
 			}
 			return sb.toString();
 		}
@@ -178,7 +178,7 @@ public class Converter {
 		}
 	}
 	
-	public static String getSolution(String decimal, int system) {
+	public static String getSolution(String decimal, int system) {	
 		int dot = decimal.indexOf('.');
 		String fraction = "";
 		if(dot >= 0) {
