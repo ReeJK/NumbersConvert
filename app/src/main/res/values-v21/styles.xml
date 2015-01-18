@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme.Black" parent="Base.AppTheme.Black">
+        <item name="android:navigationBarColor">@color/bars_black</item>
+        <item name="buttonBackgroundColor">@color/bars_black</item>
+    </style>
+
+    <style name="AppTheme.Blue" parent="Base.AppTheme.Blue">
+        <item name="android:navigationBarColor">@color/bars_blue</item>
+        <item name="buttonBackgroundColor">@color/bars_blue</item>
+    </style>
+
+    <style name="AppTheme.Green" parent="Base.AppTheme.Green">
+        <item name="android:navigationBarColor">@color/bars_green</item>
+        <item name="buttonBackgroundColor">@color/bars_green</item>
+    </style>
+
+    <style name="AppTheme.Red" parent="Base.AppTheme.Red">
+        <item name="android:navigationBarColor">@color/bars_red</item>
+        <item name="buttonBackgroundColor">@color/bars_red</item>
+    </style>
+
+    <style name="AppTheme.White" parent="Base.AppTheme.White">
+        <item name="android:navigationBarColor">@color/bars_white</item>
+        <item name="buttonBackgroundColor">@color/bars_white</item>
+    </style>
+
+</resources>

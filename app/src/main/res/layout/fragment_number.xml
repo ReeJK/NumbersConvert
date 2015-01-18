@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="com.app.numconv.NumberFragment">
+
+    <Button
+        android:id="@+id/base"
+        android:background="@drawable/abc_edit_text_material"
+        android:textColor="?attr/panelTextColor"
+        android:backgroundTint="?attr/colorControlNormal"
+        android:layout_alignParentRight="true"
+        android:layout_width="64dp"
+        android:layout_height="48dp"
+        android:hint="@string/base" />
+
+    <com.app.numconv.FixedEditText
+        android:id="@+id/number"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/base"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:hint="@string/number"
+        android:inputType="textNoSuggestions"
+        android:singleLine="true" />
+
+</RelativeLayout>

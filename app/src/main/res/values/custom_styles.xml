@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomStyles">
+        <attr name="helpTextColor" format="color" />
+        <attr name="buttonBackgroundColor" format="color" />
+
+        <attr name="panelBackgroundOwn" format="reference" />
+        <attr name="panelTextColor" format="color" />
+    </declare-styleable>
+</resources>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Конвертация чисел</string>
+
+    <string name="number">Число</string>
+    <string name="first_number">Первое число</string>
+    <string name="second_number">Второе число</string>
+    <string name="result_number">Результат</string>
+    <string name="base">Система</string>
+
+    <string name="open_calculator_hint">Проведите вниз для калькулятора</string>
+    <string name="open_solution_hint">Проведите влево для решения</string>
+
+    <string name="action_calculator">Калькулятор</string>
+    <string name="action_solution">Решение</string>
+    <string name="action_settings">Настройки</string>
+
+    <string name="clear">Очистить</string>
+    <string name="swap_with_first">Поменять с первым числом</string>
+    <string name="swap_with_second">Поменять со вторым числом</string>
+    <string name="swap_with_result">Поменять с результатом</string>
+
+    <!-- Solution -->
+    <string name="solution">Решение</string>
+    <string name="solution_problem">Задача:</string>
+    <string name="convert_to_dec">Переводим число в десятичную:</string>
+    <string name="number_is_dec">Число уже десятеричное</string>
+    <string name="convert_first_to_dec">Переводим первое число в десятичную:</string>
+    <string name="first_is_dec">Первое число уже десятеричное</string>
+    <string name="convert_second_to_dec">Переводим второе число в десятичную:</string>
+    <string name="second_is_dec">Второе число уже десятеричное</string>
+    <string name="solution_calculating">Вычисляем:</string>
+    <string name="convert_result_to">Перевод результат в %d систему:</string>
+    <string name="integer_part">Целая часть:</string>
+    <string name="fraction_part">Дробная часть:</string>
+    <string name="too_many_fraction_steps">Это число имеет очень много шагов, поэтому через какое-то кол-во шагов можно остановиться и выдать примерный результат.</string>
+    <string name="solution_result">Результат (подчёркнутые числа, целая часть в обратном порядке): </string>
+    <string name="result_is_dec">Результат уже готов (он должен быть в десятеричной).</string>
+    <string name="solution_answer">Ответ:</string>
+
+    <!-- exception messages -->
+    <string name="exception_out_of_base" formatted="false">Система %d не содержит цифры \'%s\'</string>
+    <string name="exception_negative_digit" formatted="false">Цифра не может быть отрицательной</string>
+    <string name="exception_no_custom_digit" formatted="false">Не прочитать цифру на %d позиции</string>
+    <string name="exception_cant_parse_digit" formatted="false">Не прочитать цифру \'%c\' на %d позиции</string>
+
+    <!-- Preferences -->
+    <string name="preferences">Настройки</string>
+
+    <string name="pref_use_app_keyboard">Клавиатура приложения</string>
+    <string name="pref_enable_vibration_feedback">Отклик вибрацией в встроенной клавиатуре</string>
+    <string name="pref_color_theme">Цветовая схема</string>
+    <string name="pref_color_black">Чёрная</string>
+    <string name="pref_color_blue">Синяя</string>
+    <string name="pref_color_green">Зелёная</string>
+    <string name="pref_color_red">Красная</string>
+    <string name="pref_color_white">Светлая</string>
+    <string name="pref_help_text">Вспомогательный текст</string>
+
+    <string name="pref_summary_help_text">Подсказки "проведите вниз/влево"</string>
+    <string name="only_in_android5">Только на Android 5 или выше</string>
+</resources>

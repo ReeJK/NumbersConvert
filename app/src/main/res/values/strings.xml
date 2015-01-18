@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Numbers Convert</string>
+
+    <string name="number">Number</string>
+    <string name="first_number">First number</string>
+    <string name="second_number">Second number</string>
+    <string name="result_number">Result</string>
+    <string name="base">Base</string>
+
+    <string name="add_button_text" translatable="false">+</string>
+    <string name="subtract_button_text" translatable="false">-</string>
+    <string name="multiply_button_text" translatable="false">×</string>
+    <string name="divide_button_text" translatable="false">÷</string>
+
+    <string name="open_calculator_hint">Swipe down for calculator</string>
+    <string name="open_solution_hint">Swipe left for solution</string>
+
+    <string name="action_calculator">Calculator</string>
+    <string name="action_solution">Solution</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="clear">Clear</string>
+    <string name="swap_with_first">Swap with first number</string>
+    <string name="swap_with_second">Swap with second number</string>
+    <string name="swap_with_result">Swap with result number</string>
+
+    <!-- Solution -->
+    <string name="solution">Solution</string>
+    <string name="solution_problem">Problem:</string>
+    <string name="convert_to_dec">Convert number to decimal:</string>
+    <string name="number_is_dec">Number already decimal</string>
+    <string name="convert_first_to_dec">Convert first number to decimal:</string>
+    <string name="first_is_dec">First number already decimal</string>
+    <string name="convert_second_to_dec">Convert second number to decimal:</string>
+    <string name="second_is_dec">Second number already decimal</string>
+    <string name="solution_calculating">Calculating:</string>
+    <string name="convert_result_to">Convert result number to base %d:</string>
+    <string name="integer_part">Integer part:</string>
+    <string name="fraction_part">Fraction part:</string>
+    <string name="too_many_fraction_steps">This number will have too many steps, so after some steps we can stop and return an approximate result.</string>
+    <string name="solution_result">Result (underlined number, integer part in reverse direction): </string>
+    <string name="result_is_dec">Result must be decimal, not need convert.</string>
+    <string name="solution_answer">Answer:</string>
+
+    <!-- exception messages -->
+    <string name="exception_out_of_base" formatted="false">Base %d doesn\'t contains digit \'%s\'</string>
+    <string name="exception_negative_digit" formatted="false">Digit can\'t be negative</string>
+    <string name="exception_no_custom_digit" formatted="false">Can\'t parse digit on %d position</string>
+    <string name="exception_cant_parse_digit" formatted="false">Can\'t parse digit \'%c\' on %d position</string>
+
+    <!-- Preferences -->
+    <string name="preferences">Preferences</string>
+
+    <string name="pref_id_use_app_keyboard" translatable="false">use_app_keyboard</string>
+    <string name="pref_id_enable_vibration_feedback" translatable="false">enable_vibration_feedback</string>
+    <string name="pref_id_color_theme" translatable="false">color_theme</string>
+    <string name="pref_id_show_help_text" translatable="false">show_help_text</string>
+
+    <string name="pref_use_app_keyboard">App keyboard</string>
+    <string name="pref_enable_vibration_feedback">Vibration feedback for app keyboard</string>
+    <string name="pref_color_theme">Color theme</string>
+    <string name="pref_color_black">Black</string>
+    <string name="pref_color_blue">Blue</string>
+    <string name="pref_color_green">Green</string>
+    <string name="pref_color_red">Red</string>
+    <string name="pref_color_white">Light</string>
+    <string name="pref_help_text">Help text</string>
+
+    <string name="pref_summary_help_text">Swipe down and up hints</string>
+    <string name="only_in_android5">Only in Android 5 or above</string>
+</resources>

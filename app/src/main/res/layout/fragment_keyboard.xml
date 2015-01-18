@@ -1,0 +1,15 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:minHeight="40dp"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.app.numconv.KeyboardFragment">
+    <LinearLayout
+        android:id="@+id/keyboard_table"
+        android:background="?attr/colorPrimaryDark"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </LinearLayout>
+</FrameLayout>

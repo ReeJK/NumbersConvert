@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_color_themes">
+        <item>@string/pref_color_black</item>
+        <item>@string/pref_color_blue</item>
+        <item>@string/pref_color_green</item>
+        <item>@string/pref_color_red</item>
+        <item>@string/pref_color_white</item>
+    </string-array>
+    <string-array name="pref_color_themes_values" translatable="false">
+        <item>Black</item>
+        <item>Blue</item>
+        <item>Green</item>
+        <item>Red</item>
+        <item>White</item>
+    </string-array>
+</resources>

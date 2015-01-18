@@ -1,0 +1,125 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.app.numconv.SolutionActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/solution_problem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2pt"
+                android:layout_marginBottom="4pt"
+                android:fontFamily="monospace"
+                android:text="@string/solution_problem" />
+
+            <TextView
+                android:id="@+id/solution_first_to_dec_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="@string/convert_first_to_dec" />
+            <TextView
+                android:id="@+id/solution_first_to_dec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="@string/first_number" />
+
+            <TextView
+                android:id="@+id/solution_second_to_dec_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="@string/convert_second_to_dec" />
+            <TextView
+                android:id="@+id/solution_second_to_dec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="@string/second_number" />
+
+            <TextView
+                android:id="@+id/solution_calculating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4pt"
+                android:fontFamily="monospace"
+                android:text="@string/solution_calculating" />
+
+            <TextView
+                android:id="@+id/solution_result_to_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4pt"
+                android:fontFamily="monospace"
+                android:text="@string/convert_result_to" />
+            <LinearLayout
+                android:id="@+id/solution_result_layout"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:text="@string/integer_part" />
+                <TableLayout
+                    android:id="@+id/solution_result_table_integer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin">
+                </TableLayout>
+                <TextView
+                    android:id="@+id/solution_result_fraction_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:text="@string/fraction_part" />
+                <TableLayout
+                    android:id="@+id/solution_result_table_fraction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin">
+                </TableLayout>
+                <TextView
+                    android:id="@+id/solution_too_many_fraction_steps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:textStyle="italic"
+                    android:textSize="5pt"
+                    android:text="@string/too_many_fraction_steps" />
+                <TextView
+                    android:id="@+id/solution_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:text="@string/solution_result" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4pt"
+                android:fontFamily="monospace"
+                android:text="@string/solution_answer" />
+            <TextView
+                android:id="@+id/solution_answer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="@string/solution_answer" />
+
+            </LinearLayout>
+        </ScrollView>
+ </LinearLayout>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<style name="appTheme" parent="@style/Theme.Sherlock">
-		<item name="android:windowTitleSize">@dimen/titlebar_height</item>
-		<item name="android:windowTitleBackgroundStyle">@style/title</item>
-		<item name="android:editTextStyle">@style/EditText</item>
-	</style>
-</resources>

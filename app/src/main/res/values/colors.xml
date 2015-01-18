@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="underPanelBackground">#22000000</color>
+
+    <!-- Black Theme -->
+    <color name="bars_black">#000407</color> <!-- status, action, navigation bar color -->
+    <color name="background_black">#0B0B0B</color> <!-- background -->
+    <color name="text_black">#FFFFFF</color>
+    <color name="accent_black">#FFDC73</color> <!-- active control color -->
+    <color name="control_highlight_black">#FF9B73</color> <!-- hover control color -->
+    <color name="control_normal_black">#212121</color> <!-- default control color -->
+    <color name="control_background_black">#000407</color>
+    <color name="panel_background_black">#151515</color>
+    <color name="panel_text_black">#FFFFFF</color>
+    <color name="help_text_black">#363636</color>
+
+    <!-- Blue Theme -->
+    <color name="bars_blue">#033E6B</color> <!-- status, action, navigation bar color -->
+    <color name="background_blue">#25567B</color> <!-- background -->
+    <color name="text_blue">#FFFFFF</color>
+    <color name="accent_blue">#FFDC73</color> <!-- active control color -->
+    <color name="control_highlight_blue">#FF9B73</color> <!-- hover control color -->
+    <color name="control_normal_blue">#66A3D2</color> <!-- default control color -->
+    <color name="control_background_blue">#033E6B</color>
+    <color name="panel_background_blue">#0B61A4</color>
+    <color name="panel_text_blue">#FFFFFF</color>
+    <color name="help_text_blue">#3F92D2</color>
+
+    <!-- Green Theme -->
+    <color name="bars_green">#1B5E20</color> <!-- status, action, navigation bar color -->
+    <color name="background_green">#4C834F</color> <!-- background -->
+    <color name="text_green">#FFFFFF</color>
+    <color name="accent_green">#EFC7A4</color> <!-- active control color -->
+    <color name="control_highlight_green">#D996BB</color> <!-- hover control color -->
+    <color name="control_normal_green">#7CD782</color> <!-- default control color -->
+    <color name="control_background_green">#1B5E20</color>
+    <color name="panel_background_green">#4CAF52</color>
+    <color name="panel_text_green">#FFFFFF</color>
+    <color name="help_text_green">#94D798</color>
+
+    <!-- Red Theme -->
+    <color name="bars_red">#D84315</color> <!-- status, action, navigation bar color -->
+    <color name="background_red">#FBE9E7</color> <!-- background -->
+    <color name="text_red">#000000</color>
+    <color name="accent_red">#73AED1</color> <!-- active control color -->
+    <color name="control_highlight_red">#B9F27F</color> <!-- hover control color -->
+    <color name="control_normal_red">#FF8159</color> <!-- default control color -->
+    <color name="control_background_red">#D84315</color>
+    <color name="panel_background_red">#FF5722</color>
+    <color name="panel_text_red">#FFFFFF</color>
+    <color name="help_text_red">#FFA385</color>
+
+    <!-- White Theme -->
+    <color name="bars_white">#CFD8DC</color> <!-- status, action, navigation bar color -->
+    <color name="background_white">#ECEFF1</color> <!-- background -->
+    <color name="text_white">#000000</color>
+    <color name="accent_white">#DCC894</color> <!-- active control color -->
+    <color name="control_highlight_white">#EDCCC3</color> <!-- hover control color -->
+    <color name="control_normal_white">#ECECEC</color> <!-- default control color -->
+    <color name="control_background_white">#CFD8DC</color>
+    <color name="panel_background_white">#D8D8D8</color>
+    <color name="panel_text_white">#000000</color>
+    <color name="help_text_white">#ECECEC</color>
+</resources>

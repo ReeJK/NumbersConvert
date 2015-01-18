@@ -1,0 +1,51 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             tools:context="com.app.numconv.CalculatorActionFragment">
+    <TableLayout
+        android:layout_width="96dp"
+        android:layout_height="wrap_content">
+        <TableRow android:layout_height="48dp">
+            <ToggleButton
+                android:id="@+id/add"
+                android:background="@drawable/button_background"
+                android:textColor="?attr/panelTextColor"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="20dp"
+                android:textOn="@string/add_button_text" android:textOff="@string/add_button_text" />
+            <ToggleButton
+                android:id="@+id/subtract"
+                android:background="@drawable/button_background"
+                android:textColor="?attr/panelTextColor"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="20dp"
+                android:textOn="@string/subtract_button_text" android:textOff="@string/subtract_button_text" />
+        </TableRow>
+        <TableRow android:layout_height="48dp">
+            <ToggleButton
+                android:id="@+id/multiply"
+                android:background="@drawable/button_background"
+                android:textColor="?attr/panelTextColor"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="20dp"
+                android:textOn="@string/multiply_button_text" android:textOff="@string/multiply_button_text" />
+            <ToggleButton
+                android:id="@+id/divide"
+                android:background="@drawable/button_background"
+                android:textColor="?attr/panelTextColor"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="20dp"
+                android:textOn="@string/divide_button_text" android:textOff="@string/divide_button_text" />
+        </TableRow>
+    </TableLayout>
+</FrameLayout>

@@ -1,0 +1,130 @@
+<resources>
+    <style name="Base.AppTheme.Black" parent="Theme.AppCompat">
+        <item name="colorPrimaryDark">@color/bars_black</item>
+        <item name="colorPrimary">@color/bars_black</item>
+        <item name="android:windowBackground">@color/background_black</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textColorSecondary">@color/text_black</item>
+
+        <item name="colorAccent">@color/accent_black</item>
+        <item name="colorControlHighlight">@color/control_highlight_black</item>
+        <item name="colorControlNormal">@color/control_normal_black</item>
+        <item name="colorButtonNormal">@color/control_background_black</item>
+
+        <item name="helpTextColor">@color/help_text_black</item>
+        <item name="panelBackgroundOwn">@drawable/panel_background_black</item>
+        <item name="panelTextColor">@color/panel_text_black</item>
+        <item name="android:editTextColor">@color/panel_text_black</item>
+
+        <item name="android:alertDialogTheme">@style/DialogTheme.Black</item>
+    </style>
+
+    <style name="Base.AppTheme.Blue" parent="Theme.AppCompat">
+        <item name="colorPrimaryDark">@color/bars_blue</item>
+        <item name="colorPrimary">@color/bars_blue</item>
+        <item name="android:windowBackground">@color/background_blue</item>
+        <item name="android:textColor">@color/text_blue</item>
+        <item name="android:textColorSecondary">@color/text_blue</item>
+
+        <item name="colorAccent">@color/accent_blue</item>
+        <item name="colorControlHighlight">@color/control_highlight_blue</item>
+        <item name="colorControlNormal">@color/control_normal_blue</item>
+        <item name="colorButtonNormal">@color/control_background_blue</item>
+
+        <item name="helpTextColor">@color/help_text_blue</item>
+        <item name="panelBackgroundOwn">@drawable/panel_background_blue</item>
+        <item name="panelTextColor">@color/panel_text_blue</item>
+        <item name="android:editTextColor">@color/panel_text_blue</item>
+
+        <item name="android:alertDialogTheme">@style/DialogTheme.Blue</item>
+    </style>
+
+    <style name="Base.AppTheme.Green" parent="Theme.AppCompat">
+        <item name="colorPrimaryDark">@color/bars_green</item>
+        <item name="colorPrimary">@color/bars_green</item>
+        <item name="android:windowBackground">@color/background_green</item>
+        <item name="android:textColor">@color/text_green</item>
+        <item name="android:textColorSecondary">@color/text_green</item>
+
+        <item name="colorAccent">@color/accent_green</item>
+        <item name="colorControlHighlight">@color/control_highlight_green</item>
+        <item name="colorControlNormal">@color/control_normal_green</item>
+        <item name="colorButtonNormal">@color/control_background_green</item>
+
+        <item name="helpTextColor">@color/help_text_green</item>
+        <item name="panelBackgroundOwn">@drawable/panel_background_green</item>
+        <item name="panelTextColor">@color/panel_text_green</item>
+        <item name="android:editTextColor">@color/panel_text_green</item>
+
+        <item name="android:alertDialogTheme">@style/DialogTheme.Green</item>
+    </style>
+
+    <style name="Base.AppTheme.Red" parent="Theme.AppCompat.Light">
+        <item name="colorPrimaryDark">@color/bars_red</item>
+        <item name="colorPrimary">@color/bars_red</item>
+        <item name="android:windowBackground">@color/background_red</item>
+        <item name="android:textColor">@color/text_red</item>
+        <item name="android:textColorPrimary">@color/panel_text_red</item>
+
+        <item name="colorAccent">@color/accent_red</item>
+        <item name="colorControlHighlight">@color/control_highlight_red</item>
+        <item name="colorControlNormal">@color/control_normal_red</item>
+        <item name="colorButtonNormal">@color/control_background_red</item>
+
+        <item name="helpTextColor">@color/help_text_red</item>
+        <item name="panelBackgroundOwn">@drawable/panel_background_red</item>
+        <item name="panelTextColor">@color/panel_text_red</item>
+        <item name="android:editTextColor">@color/panel_text_red</item>
+
+        <item name="android:alertDialogTheme">@style/DialogTheme.Red</item>
+    </style>
+
+    <style name="Base.AppTheme.White" parent="Theme.AppCompat.Light">
+        <item name="colorPrimaryDark">@color/bars_white</item>
+        <item name="colorPrimary">@color/bars_white</item>
+        <item name="android:windowBackground">@color/background_white</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textColorSecondary">@color/text_white</item>
+
+        <item name="colorAccent">@color/accent_white</item>
+        <item name="colorControlHighlight">@color/control_highlight_white</item>
+        <item name="colorControlNormal">@color/control_normal_white</item>
+        <item name="colorButtonNormal">@color/control_background_white</item>
+
+        <item name="helpTextColor">@color/help_text_white</item>
+        <item name="panelBackgroundOwn">@drawable/panel_background_white</item>
+        <item name="panelTextColor">@color/panel_text_white</item>
+        <item name="android:editTextColor">@color/panel_text_white</item>
+
+        <item name="android:alertDialogTheme">@style/DialogTheme.White</item>
+    </style>
+
+    <style name="AppTheme.Black" parent="Base.AppTheme.Black" />
+    <style name="AppTheme.Blue" parent="Base.AppTheme.Blue" />
+    <style name="AppTheme.Green" parent="Base.AppTheme.Green" />
+    <style name="AppTheme.Red" parent="Base.AppTheme.Red" />
+    <style name="AppTheme.White" parent="Base.AppTheme.White" />
+
+    <style name="AppTheme" parent="AppTheme.Blue" />
+
+    <style name="DialogTheme.Black" parent="Theme.AppCompat.Dialog">
+        <item name="android:background">@color/background_black</item>
+    </style>
+
+    <style name="DialogTheme.Blue" parent="Theme.AppCompat.Dialog">
+        <item name="android:background">@color/background_blue</item>
+    </style>
+
+    <style name="DialogTheme.Green" parent="Theme.AppCompat.Dialog">
+        <item name="android:background">@color/background_green</item>
+    </style>
+
+    <style name="DialogTheme.Red" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:background">@color/background_red</item>
+    </style>
+
+    <style name="DialogTheme.White" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:background">@color/background_white</item>
+    </style>
+
+ </resources>
