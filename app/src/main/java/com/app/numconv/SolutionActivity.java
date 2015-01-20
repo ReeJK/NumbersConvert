@@ -134,15 +134,18 @@ public class SolutionActivity extends AppActivity {
                 writeAction(sb, action);
                 sb.number(second).index(secondBase);
             }
-            sb.equals();
 
             if (firstBase != 10 || (isCalc && secondBase != 10)) {
-                sb.number(firstDec).index(10);
-                writeAction(sb, action);
-                sb.number(secondDec).index(10).equals();
+                sb.equals().number(firstDec).index(10);
+                if(isCalc) {
+                    writeAction(sb, action);
+                    sb.number(secondDec).index(10);
+                }
             }
 
-            sb.number(resultDec).index(10);
+            if(isCalc) {
+                sb.equals().number(resultDec).index(10);
+            }
 
             if (resultBase != 10) {
                 sb.equals().number(result).index(resultBase);

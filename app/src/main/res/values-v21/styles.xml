@@ -25,4 +25,24 @@
         <item name="buttonBackgroundColor">@color/bars_white</item>
     </style>
 
+    <style name="DialogTheme.Black" parent="Theme.AppCompat.Dialog">
+        <item name="android:background">@color/background_black</item>
+    </style>
+
+    <style name="DialogTheme.Blue" parent="Theme.AppCompat.Dialog">
+        <item name="android:background">@color/background_blue</item>
+    </style>
+
+    <style name="DialogTheme.Green" parent="Theme.AppCompat.Dialog">
+        <item name="android:background">@color/background_green</item>
+    </style>
+
+    <style name="DialogTheme.Red" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:background">@color/background_red</item>
+    </style>
+
+    <style name="DialogTheme.White" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:background">@color/background_white</item>
+    </style>
+
 </resources>

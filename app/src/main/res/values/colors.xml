@@ -12,7 +12,7 @@
     <color name="control_background_black">#000407</color>
     <color name="panel_background_black">#151515</color>
     <color name="panel_text_black">#FFFFFF</color>
-    <color name="help_text_black">#363636</color>
+    <color name="help_text_black">#565656</color>
 
     <!-- Blue Theme -->
     <color name="bars_blue">#033E6B</color> <!-- status, action, navigation bar color -->

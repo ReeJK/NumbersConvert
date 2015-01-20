@@ -5,11 +5,11 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.internal.widget.TintEditText;
 import android.text.InputType;
 import android.util.AttributeSet;
-import android.widget.EditText;
 
-public class FixedEditText extends EditText {
+public class FixedEditText extends TintEditText {
     private static final int blinkTimeout = 500;
 
     private static boolean _blink = false;

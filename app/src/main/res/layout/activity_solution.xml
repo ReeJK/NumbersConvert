@@ -32,6 +32,8 @@
                 android:id="@+id/solution_first_to_dec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="2pt"
+                android:paddingTop="2pt"
                 android:fontFamily="monospace"
                 android:text="@string/first_number" />
 
@@ -45,6 +47,8 @@
                 android:id="@+id/solution_second_to_dec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="2pt"
+                android:paddingTop="2pt"
                 android:fontFamily="monospace"
                 android:text="@string/second_number" />
 
@@ -53,6 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4pt"
+                android:paddingBottom="2pt"
                 android:fontFamily="monospace"
                 android:text="@string/solution_calculating" />
 
@@ -117,6 +122,7 @@
                 android:id="@+id/solution_answer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="2pt"
                 android:fontFamily="monospace"
                 android:text="@string/solution_answer" />
 
